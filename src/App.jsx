@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import FloatingNav from './components/FloatingNav'
+import Footer from './components/Footer'
 import Home from './pages/Home'
 import MenuPage from './pages/MenuPage'
 import NarPage from './pages/NarPage'
@@ -26,6 +27,7 @@ export default function App() {
     <BrowserRouter>
       <FloatingNav />
       <AnimatedRoutes />
+      <Footer />
     </BrowserRouter>
   )
 }
