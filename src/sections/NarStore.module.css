@@ -1,0 +1,161 @@
+.nar {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.coverWrapper {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.coverOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 10, 5, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5rem;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+  margin-bottom: 1.25rem;
+}
+
+.narLogoImg {
+  height: clamp(3rem, 6vw, 5.5rem);
+  width: auto;
+  filter: brightness(0) invert(1);
+  display: block;
+  margin-bottom: 0.75rem;
+  align-self: center;
+}
+
+.headingSubtitle {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: rgba(247, 243, 238, 0.75);
+  align-self: center;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.textBlock {
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+  border-right: 1px solid rgba(214, 201, 182, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.sketch {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  opacity: 0.05;
+  pointer-events: none;
+  filter: invert(1);
+}
+
+.body {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-sand);
+}
+
+.images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.narImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.galleryItem {
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+
+.galleryItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.galleryItem:hover img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 900px) {
+  .coverOverlay {
+    padding: 3rem;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .textBlock {
+    padding: 4rem 2.5rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(214, 201, 182, 0.15);
+  }
+
+  .sketch {
+    width: 70%;
+  }
+
+  .images {
+    height: 60vw;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

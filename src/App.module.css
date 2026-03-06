@@ -1,0 +1,12 @@
+.pageTransition {
+  animation: pageIn 0.5s ease both;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

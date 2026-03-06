@@ -1,0 +1,150 @@
+.space {
+  display: grid;
+  background-color: var(--color-bg);
+  overflow: hidden;
+}
+
+.space > * {
+  grid-area: 1/1;
+}
+
+.bgLogo {
+  color: var(--color-brand);
+  opacity: 0.06;
+  width: 50%;
+  align-self: center;
+  justify-self: end;
+  pointer-events: none;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  z-index: 1;
+}
+
+.imageCol {
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.textCol {
+  padding: 7rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+  margin-bottom: 1.5rem;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.heading em {
+  font-style: italic;
+}
+
+.intro {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-muted);
+  margin-bottom: 3rem;
+}
+
+.offerings {
+  display: flex;
+  flex-direction: column;
+}
+
+.offering {
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--color-sand);
+}
+
+.offering:last-child {
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.offeringLabel {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.menuBtn {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding: 0.85rem 2rem;
+  background-color: var(--color-brand);
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+}
+
+.menuBtn:hover {
+  background-color: #9a4f23;
+}
+
+.offeringText {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-muted);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+
+  .imageCol {
+    height: 60vw;
+    max-height: 500px;
+  }
+
+  .textCol {
+    padding: 4rem 2.5rem;
+  }
+
+  .bgLogo {
+    width: 100%;
+    justify-self: stretch;
+    align-self: start;
+    margin-top: 60vw;
+  }
+}

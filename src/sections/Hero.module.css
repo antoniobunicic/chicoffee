@@ -1,0 +1,53 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 10, 5, 0.45);
+}
+
+.signature {
+  position: absolute;
+  bottom: 3rem;
+  right: 2.5rem;
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 2rem;
+  color: rgba(247, 243, 238, 0.85);
+  z-index: 10;
+  line-height: 1;
+  transform: rotate(-8deg);
+  transform-origin: right center;
+}
+
+.logoWrapper {
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  width: 260px;
+  height: auto;
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .logo {
+    width: 160px;
+  }
+
+  .signature {
+    font-size: 1.3rem;
+    bottom: 2rem;
+    right: 1.5rem;
+  }
+}
