@@ -1,0 +1,35 @@
+.cartButton {
+  position: relative;
+  background: none;
+  border: none;
+  color: rgba(247, 243, 238, 0.85);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.25s ease;
+  pointer-events: all;
+}
+
+.cartButton:hover {
+  color: var(--color-brand);
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background: var(--color-brand);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

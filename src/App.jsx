@@ -1,9 +1,13 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { CartProvider } from './context/CartContext'
 import FloatingNav from './components/FloatingNav'
+import CartDrawer from './components/CartDrawer'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import MenuPage from './pages/MenuPage'
+import WebshopPage from './pages/WebshopPage'
 import NarPage from './pages/NarPage'
+import ProductPage from './pages/ProductPage'
 import Kontakt from './pages/Kontakt'
 import styles from './App.module.css'
 
@@ -15,6 +19,8 @@ function AnimatedRoutes() {
       <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<MenuPage />} />
+        <Route path="/webshop" element={<WebshopPage />} />
+        <Route path="/webshop/:handle" element={<ProductPage />} />
         <Route path="/nar" element={<NarPage />} />
         <Route path="/kontakt" element={<Kontakt />} />
       </Routes>
@@ -25,9 +31,12 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <FloatingNav />
-      <AnimatedRoutes />
-      <Footer />
+      <CartProvider>
+        <FloatingNav />
+        <CartDrawer />
+        <AnimatedRoutes />
+        <Footer />
+      </CartProvider>
     </BrowserRouter>
   )
 }
