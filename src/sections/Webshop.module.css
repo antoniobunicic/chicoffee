@@ -15,28 +15,10 @@
   object-position: center;
 }
 
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 4rem 5rem;
-}
-
-.heroTitle {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1.1;
-  color: #fff;
-}
-
 .webshop {
   min-height: 60vh;
   background: var(--color-bg);
-  padding: 4rem 2.5rem;
+  padding: 4rem 5rem 6rem;
 }
 
 .status {
@@ -47,100 +29,167 @@
   font-size: 0.9rem;
 }
 
+.sectionTitle {
+  max-width: 1300px;
+  margin: 0 auto 2.5rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+/* Grid s crtama */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--color-sand);
+  border-left: 1px solid var(--color-sand);
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: inherit;
+  border-right: 1px solid var(--color-sand);
+  border-bottom: 1px solid var(--color-sand);
+  padding: 1.75rem;
+  background: #fff;
 }
 
+/* Image */
 .imgWrap {
-  aspect-ratio: 1 / 1;
+  display: block;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-radius: 4px;
+  background: #ede8e1;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
 }
 
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.6s ease;
 }
 
 .card:hover .img {
   transform: scale(1.04);
 }
 
-.cardLink {
+.imgPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-sand);
+}
+
+/* Card body */
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
+.titleLink {
   text-decoration: none;
   color: inherit;
 }
 
-.cardBody {
-  padding: 0.75rem 0.15rem;
+.title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.2;
+  transition: color 0.2s ease;
+}
+
+.titleLink:hover .title {
+  color: var(--color-brand);
+}
+
+.meta {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
+  margin-top: 0.1rem;
 }
 
-.productTitle {
+.vendor {
   font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.cardFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--color-muted);
 }
 
 .price {
   font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
 }
 
+/* Add button — vidljiv na hoveru */
 .addBtn {
-  background: none;
-  border: 1px solid var(--color-brand);
-  color: var(--color-brand);
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  font-size: 1rem;
-  line-height: 1;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: var(--color-text);
+  color: var(--color-text-light);
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, color 0.2s ease;
-  flex-shrink: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.card:hover .addBtn {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .addBtn:hover {
   background: var(--color-brand);
-  color: #fff;
+}
+
+.addBtnAdded {
+  background: var(--color-brand) !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .addBtn:disabled {
-  opacity: 0.4;
   cursor: not-allowed;
 }
 
+.card:hover .addBtn:disabled {
+  opacity: 0.45;
+  background: var(--color-sand);
+  color: var(--color-muted);
+}
+
+/* Responsive */
 @media (max-width: 1100px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+  .webshop {
+    padding: 3rem 3rem 5rem;
   }
 }
 
@@ -151,19 +200,48 @@
 
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
   }
 
   .webshop {
-    padding: 2rem 1rem;
+    padding: 2.5rem 0 4rem;
   }
 
-  .productTitle {
-    font-size: 0.75rem;
+  .sectionTitle {
+    padding-left: 1.25rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .imgWrap {
+    margin-bottom: 0.9rem;
+  }
+
+  .title {
+    font-size: 0.88rem;
+  }
+
+  .vendor {
+    font-size: 0.65rem;
   }
 
   .price {
-    font-size: 0.72rem;
+    font-size: 0.82rem;
+  }
+
+  .addBtn {
+    opacity: 1;
+    transform: translateY(0);
+    font-size: 0.62rem;
+    padding: 0.6rem 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  .addBtn:disabled {
+    opacity: 0.45;
+    background: var(--color-sand);
+    color: var(--color-muted);
   }
 }
 

@@ -5,6 +5,9 @@
   right: 0;
   z-index: 100;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav {
@@ -16,9 +19,32 @@
 
 .cartWrapper {
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 2.5rem;
+  transform: translateY(-50%);
   pointer-events: all;
+}
+
+.logoLink {
+  position: absolute;
+  top: 50%;
+  left: 2.5rem;
+  transform: translateY(-50%);
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgba(247, 243, 238, 0.9);
+  transition: color 0.25s ease;
+}
+
+.logoLink:hover {
+  color: var(--color-brand);
+}
+
+.logoMark {
+  height: 28px;
+  width: auto;
 }
 
 .hamburger {
@@ -106,10 +132,8 @@
 @media (max-width: 768px) {
   .wrapper {
     top: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 0 1.5rem;
+    justify-content: flex-start;
   }
 
   .nav {
@@ -128,7 +152,12 @@
     pointer-events: all;
   }
 
+  .logoLink {
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
   .cartWrapper {
-    position: static;
+    right: 1.5rem;
   }
 }

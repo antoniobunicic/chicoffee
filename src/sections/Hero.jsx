@@ -7,11 +7,11 @@ export default function Hero() {
     <section className={styles.hero} style={{ backgroundImage: `url(${heroImg})` }}>
       <div className={styles.overlay} />
       <a
-        href="https://www.instagram.com/chicoffee.hr"
+        href="https://www.instagram.com/chispecialtycoffee"
         target="_blank"
         rel="noopener noreferrer"
         className={styles.signature}
-      >@chicoffee.hr</a>
+      >@chispecialtycoffee</a>
       <div className={styles.logoWrapper}>
         <LogoAnimated className={styles.logo} />
       </div>

@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { List, X } from '@phosphor-icons/react'
 import CartIcon from './CartIcon'
+import LogoCHI from './LogoCHI'
 import styles from './FloatingNav.module.css'
 
 const NAV_LINKS = [
@@ -14,10 +15,18 @@ const NAV_LINKS = [
 
 export default function FloatingNav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
 
   return (
     <>
       <div className={styles.wrapper}>
+        {!isHome && (
+          <Link to="/" className={styles.logoLink}>
+            <LogoCHI className={styles.logoMark} />
+          </Link>
+        )}
+
         <button
           className={styles.hamburger}
           onClick={() => setMenuOpen(true)}

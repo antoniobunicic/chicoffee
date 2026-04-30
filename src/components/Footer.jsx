@@ -14,8 +14,8 @@ export default function Footer() {
         <div className={styles.contact}>
           <p className={styles.contactLabel}>Posjetite nas</p>
           <p>Preradovićeva 34, Zagreb</p>
-          <a href="https://www.instagram.com/chicoffee.hr" target="_blank" rel="noopener noreferrer">
-            @chicoffee.hr
+          <a href="https://www.instagram.com/chispecialtycoffee" target="_blank" rel="noopener noreferrer">
+            @chispecialtycoffee
           </a>
         </div>
 

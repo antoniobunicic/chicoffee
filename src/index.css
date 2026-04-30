@@ -1,28 +1,105 @@
 @font-face {
-  font-family: 'Alte Haas Grotesk';
-  src: url('./assets/AlteHaasGroteskRegular.ttf') format('truetype');
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-Extralight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-ExtralightItalic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Alte Haas Grotesk';
-  src: url('./assets/AlteHaasGroteskBold.ttf') format('truetype');
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-SemiboldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Recoleta';
-  src: url('./assets/Recoleta Regular.otf') format('opentype');
+  font-family: 'Switzer';
+  src: url('./assets/fonts/Switzer/Switzer-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'ABC Maxi Round';
+  src: url('./assets/fonts/ABC Maxi Round/ABCMaxiRound-Light-Trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABC Maxi Round';
+  src: url('./assets/fonts/ABC Maxi Round/ABCMaxiRound-Regular-Trial.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Days Sans';
-  src: url('./assets/Days Sans Black.otf') format('opentype');
-  font-weight: 900;
+  font-family: 'ABC Maxi Round';
+  src: url('./assets/fonts/ABC Maxi Round/ABCMaxiRound-Bold-Trial.otf') format('opentype');
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -42,8 +119,8 @@
   --color-muted: #8A7D6F;
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-heading: 'Days Sans', system-ui, sans-serif;
+  --font-body: 'Switzer', system-ui, sans-serif;
+  --font-heading: 'ABC Maxi Round', system-ui, sans-serif;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

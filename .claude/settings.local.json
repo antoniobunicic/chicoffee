@@ -28,7 +28,18 @@
       "Bash(npx vite:*)",
       "Bash(npm run:*)",
       "Bash(ls /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/src/assets/images/shelf*)",
-      "Bash(ls /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/images/shelf*)"
+      "Bash(ls /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/images/shelf*)",
+      "Bash(ls:*)",
+      "Bash(python3 *)",
+      "Bash(node -e \"require\\('sharp'\\)\")",
+      "Bash(rsvg-convert -w 32 -h 32 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon-32.png)",
+      "Bash(rsvg-convert -w 192 -h 192 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon-192.png)",
+      "Bash(rsvg-convert -w 180 -h 180 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/apple-touch-icon.png)",
+      "Bash(identify /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon-32.png)",
+      "Bash(convert /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon-32.png -format \"%c\" histogram:info:)",
+      "Bash(rsvg-convert -w 16 -h 16 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /tmp/fav16.png)",
+      "Bash(rsvg-convert -w 48 -h 48 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /tmp/fav48.png)",
+      "Bash(magick /tmp/fav16.png /tmp/fav48.png /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon-32.png /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.ico)"
     ]
   }
 }

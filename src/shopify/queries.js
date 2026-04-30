@@ -2,7 +2,7 @@ import { gql } from 'graphql-request'
 import { shopifyClient } from './client'
 
 const PRODUCTS_QUERY = gql`
-  query Products($first: Int!) {
+  query Products($first: Int!) @inContext(language: HR) {
     products(first: $first) {
       edges {
         node {
@@ -10,6 +10,18 @@ const PRODUCTS_QUERY = gql`
           title
           description
           handle
+          productType
+          tags
+          vendor
+          metafields(identifiers: [
+            { namespace: "custom", key: "country" }
+            { namespace: "custom", key: "coffee_roast" }
+          ]) {
+            namespace
+            key
+            value
+            type
+          }
           images(first: 1) {
             edges {
               node {
@@ -28,6 +40,7 @@ const PRODUCTS_QUERY = gql`
             edges {
               node {
                 id
+                availableForSale
               }
             }
           }
@@ -172,13 +185,29 @@ const REMOVE_CART_LINES_MUTATION = gql`
 `
 
 const PRODUCT_BY_HANDLE_QUERY = gql`
-  query ProductByHandle($handle: String!) {
+  query ProductByHandle($handle: String!) @inContext(language: HR) {
     productByHandle(handle: $handle) {
       id
       title
       description
       descriptionHtml
       handle
+      productType
+      tags
+      vendor
+      category {
+        id
+        name
+      }
+      metafields(identifiers: [
+        { namespace: "custom", key: "country" }
+        { namespace: "custom", key: "coffee_roast" }
+      ]) {
+        namespace
+        key
+        value
+        type
+      }
       images(first: 10) {
         edges {
           node {
@@ -210,6 +239,15 @@ const PRODUCT_BY_HANDLE_QUERY = gql`
   }
 `
 
+function parseMetafields(metafields) {
+  const result = {}
+  if (!metafields) return result
+  for (const mf of metafields) {
+    if (mf) result[mf.key] = mf.value
+  }
+  return result
+}
+
 export async function fetchProductByHandle(handle) {
   const data = await shopifyClient.request(PRODUCT_BY_HANDLE_QUERY, { handle })
   const p = data.productByHandle
@@ -220,6 +258,10 @@ export async function fetchProductByHandle(handle) {
     description: p.description,
     descriptionHtml: p.descriptionHtml,
     handle: p.handle,
+    productType: p.productType,
+    tags: p.tags,
+    vendor: p.vendor,
+    metafields: parseMetafields(p.metafields),
     images: p.images.edges.map(({ node }) => node),
     price: p.priceRange.minVariantPrice,
     variants: p.variants.edges.map(({ node }) => node),
@@ -233,9 +275,14 @@ export async function fetchProducts(first = 20) {
     title: node.title,
     description: node.description,
     handle: node.handle,
+    productType: node.productType,
+    tags: node.tags,
+    vendor: node.vendor,
+    metafields: parseMetafields(node.metafields),
     image: node.images.edges[0]?.node || null,
     price: node.priceRange.minVariantPrice,
     variantId: node.variants.edges[0]?.node.id,
+    availableForSale: node.variants.edges[0]?.node.availableForSale ?? false,
   }))
 }
 

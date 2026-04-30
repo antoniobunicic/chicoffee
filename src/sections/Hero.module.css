@@ -35,7 +35,7 @@
 }
 
 .logo {
-  width: 260px;
+  width: clamp(260px, 18vw, 320px);
   height: auto;
   color: #fff;
 }

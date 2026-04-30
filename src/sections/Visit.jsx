@@ -37,6 +37,15 @@ export default function Visit() {
 
         </div>
 
+        <div className={styles.details}>
+          <div className={styles.detailGroup}>
+            <h4 className={styles.detailLabel}>Kontakt podaci</h4>
+            <p className={styles.detailValue}>
+              <a href="mailto:chi_coffee@yahoo.com" className={styles.emailLink}>chi_coffee@yahoo.com</a>
+            </p>
+          </div>
+        </div>
+
         <a
           href="https://maps.app.goo.gl/khfnyiroB7BuNzJN9"
           target="_blank"

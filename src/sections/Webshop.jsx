@@ -6,11 +6,60 @@ import shelfImg from '../assets/images/shelf.jpg'
 import styles from './Webshop.module.css'
 
 function formatPrice(price) {
-  const amount = parseFloat(price.amount)
   return new Intl.NumberFormat('hr-HR', {
     style: 'currency',
     currency: price.currencyCode,
-  }).format(amount)
+  }).format(parseFloat(price.amount))
+}
+
+function ProductCard({ product, onAdd, cartLoading }) {
+  const [added, setAdded] = useState(false)
+
+  async function handleAdd(e) {
+    e.preventDefault()
+    if (!product.variantId) return
+    await onAdd(product.variantId)
+    setAdded(true)
+    setTimeout(() => setAdded(false), 2000)
+  }
+
+  return (
+    <div className={styles.card}>
+      <Link to={`/webshop/${product.handle}`} className={styles.imgWrap}>
+        {product.image ? (
+          <img
+            src={product.image.url}
+            alt={product.image.altText || product.title}
+            className={styles.img}
+          />
+        ) : (
+          <div className={styles.imgPlaceholder} />
+        )}
+      </Link>
+
+      <div className={styles.cardBody}>
+        {product.productType && (
+          <span className={styles.eyebrow}>{product.productType}</span>
+        )}
+        <Link to={`/webshop/${product.handle}`} className={styles.titleLink}>
+          <h3 className={styles.title}>{product.title}</h3>
+        </Link>
+        <div className={styles.meta}>
+          {product.vendor && (
+            <span className={styles.vendor}>{product.vendor}</span>
+          )}
+          <span className={styles.price}>{formatPrice(product.price)}</span>
+        </div>
+        <button
+          className={`${styles.addBtn} ${added ? styles.addBtnAdded : ''}`}
+          onClick={handleAdd}
+          disabled={cartLoading || !product.availableForSale}
+        >
+          {!product.availableForSale ? 'Rasprodano' : added ? 'Dodano ✓' : 'Dodaj u košaricu'}
+        </button>
+      </div>
+    </div>
+  )
 }
 
 export default function Webshop() {
@@ -22,7 +71,7 @@ export default function Webshop() {
   useEffect(() => {
     fetchProducts()
       .then(setProducts)
-      .catch((err) => setError(err.message))
+      .catch((err) => { console.error('Shopify error:', err); setError(err.message) })
       .finally(() => setLoading(false))
   }, [])
 
@@ -39,42 +88,22 @@ export default function Webshop() {
     <>
       <div className={styles.heroHeader}>
         <img src={shelfImg} alt="" className={styles.heroBg} />
-        <div className={styles.heroOverlay}>
-          <h1 className={styles.heroTitle}>Webshop</h1>
-        </div>
       </div>
       <section className={styles.webshop}>
         {content || (
-        <div className={styles.grid}>
-        {products.map((product) => (
-          <div key={product.id} className={styles.card}>
-            <Link to={`/webshop/${product.handle}`} className={styles.cardLink}>
-              {product.image && (
-                <div className={styles.imgWrap}>
-                  <img
-                    src={product.image.url}
-                    alt={product.image.altText || product.title}
-                    className={styles.img}
-                  />
-                </div>
-              )}
-            </Link>
-            <div className={styles.cardBody}>
-              <h3 className={styles.productTitle}>{product.title}</h3>
-              <div className={styles.cardFooter}>
-                <span className={styles.price}>{formatPrice(product.price)}</span>
-                <button
-                  className={styles.addBtn}
-                  onClick={() => addItem(product.variantId)}
-                  disabled={cartLoading}
-                >
-                  +
-                </button>
-              </div>
-            </div>
+          <>
+            <h2 className={styles.sectionTitle}>Trenutna rotacija</h2>
+            <div className={styles.grid}>
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAdd={addItem}
+                cartLoading={cartLoading}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+          </>
         )}
       </section>
     </>
