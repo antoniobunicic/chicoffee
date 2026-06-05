@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { LanguageProvider } from './context/LanguageContext'
 import { CartProvider } from './context/CartContext'
 import FloatingNav from './components/FloatingNav'
 import CartDrawer from './components/CartDrawer'
 import Footer from './components/Footer'
 import Home from './pages/Home'
-import MenuPage from './pages/MenuPage'
 import WebshopPage from './pages/WebshopPage'
 import NarPage from './pages/NarPage'
 import ProductPage from './pages/ProductPage'
@@ -18,7 +18,6 @@ function AnimatedRoutes() {
     <div key={location.pathname} className={styles.pageTransition}>
       <Routes location={location}>
         <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<MenuPage />} />
         <Route path="/webshop" element={<WebshopPage />} />
         <Route path="/webshop/:handle" element={<ProductPage />} />
         <Route path="/nar" element={<NarPage />} />
@@ -31,12 +30,14 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <CartProvider>
-        <FloatingNav />
-        <CartDrawer />
-        <AnimatedRoutes />
-        <Footer />
-      </CartProvider>
+      <LanguageProvider>
+        <CartProvider>
+          <FloatingNav />
+          <CartDrawer />
+          <AnimatedRoutes />
+          <Footer />
+        </CartProvider>
+      </LanguageProvider>
     </BrowserRouter>
   )
 }

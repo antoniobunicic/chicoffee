@@ -101,24 +101,6 @@
   margin-bottom: 0.4rem;
 }
 
-.menuBtn {
-  display: inline-block;
-  margin-top: 2.5rem;
-  padding: 0.85rem 2rem;
-  background-color: var(--color-brand);
-  color: var(--color-text-light);
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  transition: background-color 0.2s ease;
-}
-
-.menuBtn:hover {
-  background-color: #9a4f23;
-}
-
 .offeringText {
   font-family: var(--font-body);
   font-size: 0.85rem;

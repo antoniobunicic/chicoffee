@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchProducts } from '../shopify/queries'
+import { useLanguage } from '../context/LanguageContext'
 import styles from './CoffeeTiles.module.css'
 
 export default function CoffeeTiles() {
   const [products, setProducts] = useState([])
+  const { lang } = useLanguage()
 
   useEffect(() => {
-    fetchProducts().then((all) => setProducts(all.slice(0, 4)))
-  }, [])
+    fetchProducts(20, lang).then((all) => setProducts(all.slice(0, 4)))
+  }, [lang])
 
   if (products.length === 0) {
     return <div className={styles.tiles}>{[...Array(4)].map((_, i) => <div key={i} className={styles.tile} />)}</div>

@@ -8,22 +8,25 @@ import gallery1 from '../assets/images/nar/gallery-1.webp'
 import gallery2 from '../assets/images/nar/gallery-2.webp'
 import gallery3 from '../assets/images/nar/gallery-3.webp'
 import gallery4 from '../assets/images/nar/gallery-4.webp'
+import { useLanguage } from '../context/LanguageContext'
 
 const GALLERY = [
-  { src: gallery1, alt: 'CHI x NAR prostor' },
-  { src: gallery2, alt: 'CHI x NAR detalj' },
-  { src: gallery3, alt: 'CHI x NAR interijer' },
-  { src: gallery4, alt: 'CHI x NAR ambijent' },
+  { src: gallery1, alt: 'CHI x NAR' },
+  { src: gallery2, alt: 'CHI x NAR' },
+  { src: gallery3, alt: 'CHI x NAR' },
+  { src: gallery4, alt: 'CHI x NAR' },
 ]
 
 export default function NarStore() {
+  const { t } = useLanguage()
+
   return (
     <section id="nar" className={styles.nar}>
       <div className={styles.coverWrapper}>
         <img src={narCover} alt="CHI x NAR" className={styles.cover} />
         <div className={styles.coverOverlay}>
 <img src={narLogo} alt="NAR" className={styles.narLogoImg} />
-          <em className={styles.headingSubtitle}>Concept Store</em>
+          <em className={styles.headingSubtitle}>{t.nar.subtitle}</em>
         </div>
       </div>
 
@@ -31,14 +34,10 @@ export default function NarStore() {
         <div className={styles.textBlock}>
           <img src={sketchCeramics} alt="" className={styles.sketch} aria-hidden="true" />
           <p className={styles.body}>
-            Uz CHI Coffee, u istom prostoru živi NAR — concept store posvećen
-            keramici, tekstilima i ručno izrađenim predmetima pažljivo odabranih
-            autora. Dva prostora, jedna filozofija: sve što vidite i osjećate
-            ovdje je odabrano s namjerom.
+            {t.nar.body1}
           </p>
           <p className={styles.body}>
-            NAR i CHI zajedno čine prostor koji poziva na usporavanje, istraživanje
-            i uživanje u predmetima koji imaju priču.
+            {t.nar.body2}
           </p>
         </div>
 

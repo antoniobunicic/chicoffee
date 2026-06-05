@@ -3,10 +3,11 @@ import { useParams, Link } from 'react-router-dom'
 import DOMPurify from 'dompurify'
 import { fetchProductByHandle } from '../shopify/queries'
 import { useCart } from '../context/CartContext'
+import { useLanguage } from '../context/LanguageContext'
 import styles from './ProductDetail.module.css'
 
-function formatPrice(price) {
-  return new Intl.NumberFormat('hr-HR', {
+function formatPrice(price, lang) {
+  return new Intl.NumberFormat(lang === 'en' ? 'en-IE' : 'hr-HR', {
     style: 'currency',
     currency: price.currencyCode,
   }).format(parseFloat(price.amount))
@@ -14,6 +15,7 @@ function formatPrice(price) {
 
 export default function ProductDetail() {
   const { handle } = useParams()
+  const { t, lang } = useLanguage()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [selectedVariant, setSelectedVariant] = useState(null)
@@ -28,7 +30,7 @@ export default function ProductDetail() {
       setLoading(true)
       setActiveImage(0)
       try {
-        const p = await fetchProductByHandle(handle)
+        const p = await fetchProductByHandle(handle, lang)
         if (!cancelled) {
           setProduct(p)
           if (p?.variants.length) setSelectedVariant(p.variants[0])
@@ -40,7 +42,7 @@ export default function ProductDetail() {
 
     load()
     return () => { cancelled = true }
-  }, [handle])
+  }, [handle, lang])
 
   async function handleAddToCart() {
     if (!selectedVariant) return
@@ -53,7 +55,7 @@ export default function ProductDetail() {
     return (
       <>
         <div className={styles.darkHeader} />
-        <div className={styles.statusPage}><p className={styles.status}>Učitavanje...</p></div>
+        <div className={styles.statusPage}><p className={styles.status}>{t.product.loading}</p></div>
       </>
     )
   }
@@ -62,7 +64,7 @@ export default function ProductDetail() {
     return (
       <>
         <div className={styles.darkHeader} />
-        <div className={styles.statusPage}><p className={styles.status}>Proizvod nije pronađen.</p></div>
+        <div className={styles.statusPage}><p className={styles.status}>{t.product.notFound}</p></div>
       </>
     )
   }
@@ -76,7 +78,7 @@ export default function ProductDetail() {
 
       <div className={styles.page}>
         <nav className={styles.breadcrumb}>
-          <Link to="/webshop" className={styles.breadcrumbLink}>Webshop</Link>
+          <Link to="/webshop" className={styles.breadcrumbLink}>{t.product.breadcrumb}</Link>
           <span className={styles.breadcrumbSep}>/</span>
           <span className={styles.breadcrumbCurrent}>{product.title}</span>
         </nav>
@@ -121,20 +123,20 @@ export default function ProductDetail() {
             )}
 
             <p className={styles.price}>
-              {formatPrice(selectedVariant?.price || product.price)}
+              {formatPrice(selectedVariant?.price || product.price, lang)}
             </p>
 
             {(country || coffeeRoast) && (
               <div className={styles.attrs}>
                 {country && (
                   <div className={styles.attr}>
-                    <span className={styles.attrLabel}>Porijeklo</span>
+                    <span className={styles.attrLabel}>{t.product.origin}</span>
                     <span className={styles.attrValue}>{country}</span>
                   </div>
                 )}
                 {coffeeRoast && (
                   <div className={styles.attr}>
-                    <span className={styles.attrLabel}>Prženje</span>
+                    <span className={styles.attrLabel}>{t.product.roast}</span>
                     <span className={styles.attrValue}>{coffeeRoast}</span>
                   </div>
                 )}
@@ -143,7 +145,7 @@ export default function ProductDetail() {
 
             {product.variants.length > 1 || (product.variants.length === 1 && product.variants[0].title.toLowerCase() !== 'default title') ? (
               <div className={styles.variants}>
-                <span className={styles.variantsLabel}>Pakiranje</span>
+                <span className={styles.variantsLabel}>{t.product.packaging}</span>
                 <div className={styles.variantBtns}>
                   {product.variants.map((v) => (
                     <button
@@ -164,7 +166,7 @@ export default function ProductDetail() {
               onClick={handleAddToCart}
               disabled={cartLoading || !selectedVariant?.availableForSale}
             >
-              {!selectedVariant?.availableForSale ? 'Rasprodano' : added ? 'Dodano ✓' : 'Dodaj u košaricu'}
+              {!selectedVariant?.availableForSale ? t.product.soldOut : added ? t.product.added : t.product.addToCart}
             </button>
 
             {product.descriptionHtml && (
@@ -183,7 +185,7 @@ export default function ProductDetail() {
             )}
 
             <a href="mailto:chi_coffee@yahoo.com" className={styles.wholesaleLink}>
-              Zainteresirani za veleprodaju? Kontaktirajte nas →
+              {t.product.wholesale}
             </a>
 
           </div>

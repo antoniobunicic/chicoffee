@@ -2,7 +2,7 @@ import { gql } from 'graphql-request'
 import { shopifyClient } from './client'
 
 const PRODUCTS_QUERY = gql`
-  query Products($first: Int!) @inContext(language: HR) {
+  query Products($first: Int!, $language: LanguageCode!) @inContext(language: $language) {
     products(first: $first) {
       edges {
         node {
@@ -185,7 +185,7 @@ const REMOVE_CART_LINES_MUTATION = gql`
 `
 
 const PRODUCT_BY_HANDLE_QUERY = gql`
-  query ProductByHandle($handle: String!) @inContext(language: HR) {
+  query ProductByHandle($handle: String!, $language: LanguageCode!) @inContext(language: $language) {
     productByHandle(handle: $handle) {
       id
       title
@@ -239,6 +239,10 @@ const PRODUCT_BY_HANDLE_QUERY = gql`
   }
 `
 
+function toLanguageCode(lang) {
+  return lang === 'en' ? 'EN' : 'HR'
+}
+
 function parseMetafields(metafields) {
   const result = {}
   if (!metafields) return result
@@ -248,8 +252,11 @@ function parseMetafields(metafields) {
   return result
 }
 
-export async function fetchProductByHandle(handle) {
-  const data = await shopifyClient.request(PRODUCT_BY_HANDLE_QUERY, { handle })
+export async function fetchProductByHandle(handle, lang = 'hr') {
+  const data = await shopifyClient.request(PRODUCT_BY_HANDLE_QUERY, {
+    handle,
+    language: toLanguageCode(lang),
+  })
   const p = data.productByHandle
   if (!p) return null
   return {
@@ -268,8 +275,11 @@ export async function fetchProductByHandle(handle) {
   }
 }
 
-export async function fetchProducts(first = 20) {
-  const data = await shopifyClient.request(PRODUCTS_QUERY, { first })
+export async function fetchProducts(first = 20, lang = 'hr') {
+  const data = await shopifyClient.request(PRODUCTS_QUERY, {
+    first,
+    language: toLanguageCode(lang),
+  })
   return data.products.edges.map(({ node }) => ({
     id: node.id,
     title: node.title,

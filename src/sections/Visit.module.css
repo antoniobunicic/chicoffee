@@ -6,6 +6,7 @@
 
 .imageCol {
   overflow: hidden;
+  min-height: 600px;
 }
 
 .image {

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { useLanguage } from '../context/LanguageContext'
 import styles from './CartDrawer.module.css'
 
-function formatPrice(price) {
+function formatPrice(price, lang) {
   const amount = parseFloat(price.amount)
-  return new Intl.NumberFormat('hr-HR', {
+  return new Intl.NumberFormat(lang === 'en' ? 'en-IE' : 'hr-HR', {
     style: 'currency',
     currency: price.currencyCode,
   }).format(amount)
@@ -12,6 +13,7 @@ function formatPrice(price) {
 
 export default function CartDrawer() {
   const { isOpen, closeCart, lines, checkoutUrl, loading, updateItem, removeItem } = useCart()
+  const { t, lang } = useLanguage()
 
   const total = lines.reduce(
     (sum, line) => sum + parseFloat(line.price.amount) * line.quantity,
@@ -27,8 +29,8 @@ export default function CartDrawer() {
       />
       <aside className={`${styles.drawer} ${isOpen ? styles.open : ''}`}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Košarica</h2>
-          <button className={styles.closeBtn} onClick={closeCart} aria-label="Zatvori">
+          <h2 className={styles.title}>{t.cart.title}</h2>
+          <button className={styles.closeBtn} onClick={closeCart} aria-label={t.cart.close}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
@@ -38,7 +40,7 @@ export default function CartDrawer() {
 
         <div className={styles.body}>
           {lines.length === 0 ? (
-            <p className={styles.empty}>Košarica je prazna.</p>
+            <p className={styles.empty}>{t.cart.empty}</p>
           ) : (
             <ul className={styles.list}>
               {lines.map((line) => (
@@ -56,7 +58,7 @@ export default function CartDrawer() {
                     <Link to={`/webshop/${line.handle}`} className={styles.itemTitleLink} onClick={closeCart}>
                       <span className={styles.itemTitle}>{line.title}</span>
                     </Link>
-                    <span className={styles.itemPrice}>{formatPrice(line.price)}</span>
+                    <span className={styles.itemPrice}>{formatPrice(line.price, lang)}</span>
                     <div className={styles.qty}>
                       <button
                         className={styles.qtyBtn}
@@ -88,9 +90,9 @@ export default function CartDrawer() {
         {lines.length > 0 && (
           <div className={styles.footer}>
             <div className={styles.totalRow}>
-              <span>Ukupno</span>
+              <span>{t.cart.total}</span>
               <span>
-                {new Intl.NumberFormat('hr-HR', {
+                {new Intl.NumberFormat(lang === 'en' ? 'en-IE' : 'hr-HR', {
                   style: 'currency',
                   currency: currencyCode,
                 }).format(total)}
@@ -102,7 +104,7 @@ export default function CartDrawer() {
               rel="noopener noreferrer"
               className={styles.checkoutBtn}
             >
-              Checkout
+              {t.cart.checkout}
             </a>
           </div>
         )}

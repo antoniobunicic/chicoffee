@@ -1,8 +1,11 @@
 import styles from './About.module.css'
 import vibeVideo from '../assets/videos/vibe.mp4'
 import sketchSvg from '../assets/images/sketch-cups.svg'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function About() {
+  const { t } = useLanguage()
+
   return (
     <section id="o-nama" className={styles.about}>
       <div className={styles.imageCol}>
@@ -18,11 +21,10 @@ export default function About() {
 
       <div className={styles.textCol}>
         <h2 className={styles.heading}>
-          Kava s karakterom
+          {t.about.heading}
         </h2>
         <p className={styles.body}>
-          Pažljivo birana zrna, promišljeno pripremljena kava
-          i prostor u kojem je u redu zadržati se.
+          {t.about.body}
         </p>
         <img src={sketchSvg} alt="" className={styles.sketch} aria-hidden="true" />
       </div>

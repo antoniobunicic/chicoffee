@@ -1,7 +1,10 @@
 import styles from './Story.module.css'
 import storyVideo from '../assets/videos/coffee-process.mp4'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Story() {
+  const { t } = useLanguage()
+
   return (
     <section className={styles.story}>
       <video
@@ -17,13 +20,12 @@ export default function Story() {
       <div className={styles.inner}>
         <div className={styles.textCol}>
           <div className={styles.textContent}>
-            <span className={styles.eyebrow}>Filozofija</span>
+            <span className={styles.eyebrow}>{t.story.eyebrow}</span>
             <h2 className={styles.heading}>
-              Specialty coffee at the heart of the story
+              {t.story.heading}
             </h2>
             <p className={styles.lead}>
-              Svako zrno ima svoju priču, porijeklo i karakter — mi ga samo
-              pokušavamo pripremiti na najbolji mogući način.
+              {t.story.lead}
             </p>
           </div>
         </div>

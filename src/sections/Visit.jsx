@@ -1,27 +1,23 @@
 import styles from './Visit.module.css'
-import visitVideo from '../assets/videos/working-hours.mp4'
+import LocationMap from '../components/LocationMap'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Visit() {
+  const { t } = useLanguage()
+
   return (
     <section id="posjeti" className={styles.visit}>
       <div className={styles.imageCol}>
-        <video
-          src={visitVideo}
-          className={styles.image}
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+        <LocationMap />
       </div>
 
       <div className={styles.infoCol}>
-        <span className={styles.eyebrow}>Posjeti nas</span>
-        <h2 className={styles.heading}>Kava u centru,<br /><em>gdje je kava u centru.</em></h2>
+        <span className={styles.eyebrow}>{t.visit.eyebrow}</span>
+        <h2 className={styles.heading}>{t.visit.headingLine1}<br /><em>{t.visit.headingLine2}</em></h2>
 
         <div className={styles.details}>
           <div className={styles.detailGroup}>
-            <h4 className={styles.detailLabel}>Adresa</h4>
+            <h4 className={styles.detailLabel}>{t.visit.addressLabel}</h4>
             <p className={styles.detailValue}>
               Preradovićeva 34<br />
               10000 Zagreb
@@ -29,9 +25,9 @@ export default function Visit() {
           </div>
 
           <div className={styles.detailGroup}>
-            <h4 className={styles.detailLabel}>Radno vrijeme</h4>
+            <h4 className={styles.detailLabel}>{t.visit.hoursLabel}</h4>
             <p className={styles.detailValue}>
-              Svaki dan &nbsp; 8:00 – 20:00
+              {t.visit.hoursValue}
             </p>
           </div>
 
@@ -39,7 +35,7 @@ export default function Visit() {
 
         <div className={styles.details}>
           <div className={styles.detailGroup}>
-            <h4 className={styles.detailLabel}>Kontakt podaci</h4>
+            <h4 className={styles.detailLabel}>{t.visit.contactLabel}</h4>
             <p className={styles.detailValue}>
               <a href="mailto:chi_coffee@yahoo.com" className={styles.emailLink}>chi_coffee@yahoo.com</a>
             </p>
@@ -52,7 +48,7 @@ export default function Visit() {
           rel="noopener noreferrer"
           className={styles.mapLink}
         >
-          Otvori u Google Mapsu ↗
+          {t.visit.mapLink}
         </a>
       </div>
     </section>

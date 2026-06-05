@@ -3,40 +3,44 @@ import { NavLink, Link, useLocation } from 'react-router-dom'
 import { List, X } from '@phosphor-icons/react'
 import CartIcon from './CartIcon'
 import LogoCHI from './LogoCHI'
+import LanguageSwitch from './LanguageSwitch'
+import { useLanguage } from '../context/LanguageContext'
 import styles from './FloatingNav.module.css'
 
 const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'Menu', to: '/menu' },
-  { label: 'NAR Store', to: '/nar' },
-  { label: 'Kontakt', to: '/kontakt' },
-  { label: 'Webshop', to: '/webshop' },
+  { key: 'home', to: '/' },
+  { key: 'nar', to: '/nar' },
+  { key: 'kontakt', to: '/kontakt' },
+  { key: 'webshop', to: '/webshop' },
 ]
 
 export default function FloatingNav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
+  const { t } = useLanguage()
   const isHome = pathname === '/'
 
   return (
     <>
       <div className={styles.wrapper}>
         {!isHome && (
-          <Link to="/" className={styles.logoLink}>
-            <LogoCHI className={styles.logoMark} />
-          </Link>
+          <div className={styles.leftGroup}>
+            <Link to="/" className={styles.logoLink}>
+              <LogoCHI className={styles.logoMark} />
+            </Link>
+          </div>
         )}
 
         <button
           className={styles.hamburger}
           onClick={() => setMenuOpen(true)}
-          aria-label="Otvori meni"
+          aria-label={t.nav.openMenu}
         >
           <List size={24} weight="light" />
         </button>
 
         <nav className={styles.nav}>
-          {NAV_LINKS.map(({ label, to }) => (
+          {NAV_LINKS.map(({ key, to }) => (
             <NavLink
               key={to}
               to={to}
@@ -45,12 +49,13 @@ export default function FloatingNav() {
                 `${styles.link} ${isActive ? styles.active : ''}`
               }
             >
-              {label}
+              {t.nav[key]}
             </NavLink>
           ))}
         </nav>
 
-        <div className={styles.cartWrapper}>
+        <div className={styles.rightGroup}>
+          <LanguageSwitch className={styles.langSwitch} />
           <CartIcon />
         </div>
       </div>
@@ -60,12 +65,12 @@ export default function FloatingNav() {
           <button
             className={styles.closeBtn}
             onClick={() => setMenuOpen(false)}
-            aria-label="Zatvori meni"
+            aria-label={t.nav.closeMenu}
           >
             <X size={28} weight="light" />
           </button>
           <nav className={styles.overlayNav}>
-            {NAV_LINKS.map(({ label, to }) => (
+            {NAV_LINKS.map(({ key, to }) => (
               <NavLink
                 key={to}
                 to={to}
@@ -75,10 +80,11 @@ export default function FloatingNav() {
                 }
                 onClick={() => setMenuOpen(false)}
               >
-                {label}
+                {t.nav[key]}
               </NavLink>
             ))}
           </nav>
+          <LanguageSwitch className={styles.overlayLangSwitch} />
         </div>
       )}
     </>

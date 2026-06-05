@@ -1,0 +1,40 @@
+.switch {
+  display: inline-flex;
+  align-items: center;
+  pointer-events: all;
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: rgba(247, 243, 238, 0.55);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+
+@media (hover: hover) {
+  .lang:hover {
+    color: rgba(247, 243, 238, 0.9);
+  }
+}
+
+.active {
+  color: rgba(247, 243, 238, 1);
+}
+
+.sep {
+  margin: 0 0.5rem;
+  color: rgba(247, 243, 238, 0.35);
+  font-size: 0.7rem;
+}
