@@ -5,6 +5,7 @@ import FloatingNav from './components/FloatingNav'
 import CartDrawer from './components/CartDrawer'
 import Footer from './components/Footer'
 import Home from './pages/Home'
+import PhilosophyPage from './pages/PhilosophyPage'
 import WebshopPage from './pages/WebshopPage'
 import NarPage from './pages/NarPage'
 import ProductPage from './pages/ProductPage'
@@ -18,6 +19,7 @@ function AnimatedRoutes() {
     <div key={location.pathname} className={styles.pageTransition}>
       <Routes location={location}>
         <Route path="/" element={<Home />} />
+        <Route path="/philosophy" element={<PhilosophyPage />} />
         <Route path="/webshop" element={<WebshopPage />} />
         <Route path="/webshop/:handle" element={<ProductPage />} />
         <Route path="/nar" element={<NarPage />} />

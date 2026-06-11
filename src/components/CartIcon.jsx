@@ -9,7 +9,7 @@ export default function CartIcon() {
 
   return (
     <button className={styles.cartButton} onClick={toggleCart} aria-label={t.cart.title}>
-      <Tote size={20} weight="light" />
+      <Tote size={26} weight="regular" />
       {itemCount > 0 && <span className={styles.badge}>{itemCount}</span>}
     </button>
   )

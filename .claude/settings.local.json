@@ -40,7 +40,8 @@
       "Bash(rsvg-convert -w 16 -h 16 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /tmp/fav16.png)",
       "Bash(rsvg-convert -w 48 -h 48 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /tmp/fav48.png)",
       "Bash(magick /tmp/fav16.png /tmp/fav48.png /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon-32.png /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.ico)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(git mv *)"
     ]
   }
 }

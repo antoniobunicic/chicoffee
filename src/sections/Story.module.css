@@ -1,6 +1,6 @@
 .story {
   position: relative;
-  height: 90vh;
+  min-height: 90vh;
   overflow: hidden;
   color: var(--color-text-light);
 }
@@ -25,9 +25,10 @@
 .inner {
   position: relative;
   z-index: 1;
-  height: 100%;
+  min-height: 90vh;
   display: flex;
   align-items: center;
+  padding: 6rem 0;
 }
 
 .textCol {
@@ -76,6 +77,38 @@
   font-weight: 300;
   line-height: 1.7;
   color: var(--color-sand);
+  margin-bottom: 2.75rem;
+}
+
+.cta {
+  align-self: flex-start;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-brand);
+  transition: color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cta::after {
+  content: '→';
+  font-size: 0.95rem;
+  transition: transform 0.25s ease;
+}
+
+.cta:hover {
+  color: var(--color-brand);
+}
+
+.cta:hover::after {
+  transform: translateX(4px);
 }
 
 @media (max-width: 900px) {

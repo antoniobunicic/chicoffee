@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { fetchProducts } from '../shopify/queries'
+import { fetchCollections } from '../shopify/queries'
 import { useCart } from '../context/CartContext'
 import { useLanguage } from '../context/LanguageContext'
-import shelfImg from '../assets/images/shelf.jpg'
+import coverImg from '../assets/images/webshop/moods.jpg'
+import stackedImg from '../assets/images/webshop/stacked.jpg'
 import styles from './Webshop.module.css'
 
 function formatPrice(price, lang) {
@@ -65,7 +66,7 @@ function ProductCard({ product, onAdd, cartLoading }) {
 }
 
 export default function Webshop() {
-  const [products, setProducts] = useState([])
+  const [collections, setCollections] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { addItem, loading: cartLoading } = useCart()
@@ -75,8 +76,8 @@ export default function Webshop() {
     let cancelled = false
     setLoading(true)
     setError(null)
-    fetchProducts(20, lang)
-      .then((data) => { if (!cancelled) setProducts(data) })
+    fetchCollections(10, 50, lang)
+      .then((data) => { if (!cancelled) setCollections(data) })
       .catch((err) => { if (!cancelled) { console.error('Shopify error:', err); setError(err.message) } })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
@@ -87,31 +88,59 @@ export default function Webshop() {
     content = <p className={styles.status}>{t.webshop.loading}</p>
   } else if (error) {
     content = <p className={styles.status}>{t.webshop.error}</p>
-  } else if (products.length === 0) {
+  } else if (collections.length === 0) {
     content = <p className={styles.status}>{t.webshop.empty}</p>
   }
 
   return (
     <>
       <div className={styles.heroHeader}>
-        <img src={shelfImg} alt="" className={styles.heroBg} />
+        <img src={coverImg} alt="" className={styles.heroBg} />
       </div>
       <section className={styles.webshop}>
-        {content || (
-          <>
-            <h2 className={styles.sectionTitle}>{t.webshop.sectionTitle}</h2>
-            <div className={styles.grid}>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAdd={addItem}
-                cartLoading={cartLoading}
-              />
-            ))}
+        <div className={styles.introRow}>
+          <div className={styles.introCol}>
+            <h1 className={styles.shopTitle}>SHOP</h1>
+            <div className={styles.intro}>
+              <span className={styles.introKicker}>{t.webshop.introKicker}</span>
+              {t.webshop.intro.map((para, i) => {
+                const isLead = i === 0
+                const isClosing = i === t.webshop.intro.length - 1
+                const cls = isLead
+                  ? styles.introLead
+                  : isClosing
+                  ? styles.introClosing
+                  : styles.introPara
+                return (
+                  <p key={i} className={cls}>{para}</p>
+                )
+              })}
+            </div>
           </div>
-          </>
-        )}
+          <div className={styles.introImageCol}>
+            <img src={stackedImg} alt="" className={styles.introImage} />
+          </div>
+        </div>
+        {content || collections.map((collection) => (
+          <div key={collection.id} className={styles.collection}>
+            <div className={styles.collectionHeader}>
+              <h2 className={styles.sectionTitle}>{collection.title}</h2>
+              {collection.description && (
+                <p className={styles.collectionDesc}>{collection.description}</p>
+              )}
+            </div>
+            <div className={styles.grid}>
+              {collection.products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAdd={addItem}
+                  cartLoading={cartLoading}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </section>
     </>
   )

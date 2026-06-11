@@ -3,7 +3,6 @@ import About from '../sections/About'
 import Story from '../sections/Story'
 import CoffeeTiles from '../sections/CoffeeTiles'
 import Space from '../sections/Space'
-import VideoStrip from '../sections/VideoStrip'
 
 export default function Home() {
   return (
@@ -13,7 +12,6 @@ export default function Home() {
       <Story />
       <CoffeeTiles />
       <Space />
-      <VideoStrip />
     </>
   )
 }

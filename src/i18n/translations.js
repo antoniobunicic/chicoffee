@@ -2,11 +2,23 @@ export const translations = {
   hr: {
     nav: {
       home: 'Home',
+      philosophy: 'Filozofija',
       nar: 'NAR Store',
       kontakt: 'Kontakt',
       webshop: 'Webshop',
       openMenu: 'Otvori meni',
       closeMenu: 'Zatvori meni',
+    },
+    philosophy: {
+      kicker: 'Naša filozofija',
+      title: 'Filozofija',
+      lead: 'CHI je moderna coffee kompanija rođena u Hrvatskoj.',
+      paragraphs: [
+        'Naš pristup temelji se na filozofiji bez kompromisa.',
+        'Cijenimo zrno, uzgajivača i sam zanat pripreme kave kao nešto istinski važno — odraz pažnje, povezanosti i vremena uloženog u svaki korak procesa.',
+        'Od podrijetla zrna, preko prženja, do same šalice, poštujemo svaku kariku tog lanca.',
+      ],
+      closing: 'Naš cilj je jednostavan — svaki put isporučiti kavu najviše kvalitete, uz potpunu transparentnost i odgovoran pristup.',
     },
     about: {
       heading: 'Kava s karakterom',
@@ -16,6 +28,7 @@ export const translations = {
       eyebrow: 'Filozofija',
       heading: 'Specialty coffee at the heart of the story',
       lead: 'Svako zrno ima svoju priču, porijeklo i karakter — mi ga samo pokušavamo pripremiti na najbolji mogući način.',
+      cta: 'Pročitaj našu filozofiju',
     },
     space: {
       eyebrow: 'Ponuda',
@@ -61,6 +74,13 @@ export const translations = {
       heading: 'Kontakt',
     },
     webshop: {
+      introKicker: 'Specialty kava',
+      intro: [
+        'Tri raspoloženja kave — naš način prikazivanja kako osjećamo, doživljavamo i dijelimo kavu.',
+        'To je oda pokretu i kulturi trećeg vala kave.',
+        'Sve naše kave nabavljamo transparentno i etično, uvijek najviše kvalitete, pržene s pažnjom i preciznošću, uz individualan pristup svakoj pojedinoj seriji.',
+        'Bez hijerarhije.\nSamo tvoje trenutno raspoloženje.',
+      ],
       sectionTitle: 'Trenutna rotacija',
       loading: 'Učitavanje...',
       error: 'Greška pri učitavanju proizvoda.',
@@ -100,11 +120,23 @@ export const translations = {
   en: {
     nav: {
       home: 'Home',
+      philosophy: 'Philosophy',
       nar: 'NAR Store',
       kontakt: 'Contact',
       webshop: 'Webshop',
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
+    },
+    philosophy: {
+      kicker: 'Our philosophy',
+      title: 'Philosophy',
+      lead: 'CHI is a modern coffee company born in Croatia.',
+      paragraphs: [
+        'Our approach is built on a no-compromise philosophy.',
+        'We value the bean, the farmer, and the craft as something deeply essential — a reflection of care, connection, and time.',
+        'From origin to roast to cup, we respect every link in the chain.',
+      ],
+      closing: 'Our goal is simple — to deliver the highest quality coffee, transparently and consciously, every single time.',
     },
     about: {
       heading: 'Coffee with character',
@@ -114,6 +146,7 @@ export const translations = {
       eyebrow: 'Philosophy',
       heading: 'Specialty coffee at the heart of the story',
       lead: 'Every bean has its own story, origin and character — we simply try to prepare it in the best possible way.',
+      cta: 'Read our philosophy',
     },
     space: {
       eyebrow: 'Offering',
@@ -159,6 +192,13 @@ export const translations = {
       heading: 'Contact',
     },
     webshop: {
+      introKicker: 'Specialty coffee',
+      intro: [
+        'Three moods of coffee — our way of presenting how we feel, experience, and share coffee.',
+        'It’s an ode to the third wave coffee movement and culture.',
+        'All our coffees are sourced transparently and ethically, always of the highest quality, roasted with care and precision, with an individual approach to every single lot.',
+        'No hierarchy.\nOnly your current mood.',
+      ],
       sectionTitle: 'Current rotation',
       loading: 'Loading...',
       error: 'Error loading products.',

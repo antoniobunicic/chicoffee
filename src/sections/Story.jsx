@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './Story.module.css'
 import storyVideo from '../assets/videos/coffee-process.mp4'
 import { useLanguage } from '../context/LanguageContext'
@@ -27,6 +28,9 @@ export default function Story() {
             <p className={styles.lead}>
               {t.story.lead}
             </p>
+            <Link to="/philosophy" className={styles.cta}>
+              {t.story.cta}
+            </Link>
           </div>
         </div>
       </div>

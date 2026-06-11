@@ -50,6 +50,65 @@ const PRODUCTS_QUERY = gql`
   }
 `
 
+const COLLECTIONS_QUERY = gql`
+  query Collections($first: Int!, $productsPerCollection: Int!, $language: LanguageCode!) @inContext(language: $language) {
+    collections(first: $first) {
+      edges {
+        node {
+          id
+          title
+          description
+          handle
+          products(first: $productsPerCollection) {
+            edges {
+              node {
+                id
+                title
+                description
+                handle
+                productType
+                tags
+                vendor
+                metafields(identifiers: [
+                  { namespace: "custom", key: "country" }
+                  { namespace: "custom", key: "coffee_roast" }
+                ]) {
+                  namespace
+                  key
+                  value
+                  type
+                }
+                images(first: 1) {
+                  edges {
+                    node {
+                      url
+                      altText
+                    }
+                  }
+                }
+                priceRange {
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
+                variants(first: 1) {
+                  edges {
+                    node {
+                      id
+                      availableForSale
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 const CREATE_CART_MUTATION = gql`
   mutation CartCreate {
     cartCreate {
@@ -275,12 +334,8 @@ export async function fetchProductByHandle(handle, lang = 'hr') {
   }
 }
 
-export async function fetchProducts(first = 20, lang = 'hr') {
-  const data = await shopifyClient.request(PRODUCTS_QUERY, {
-    first,
-    language: toLanguageCode(lang),
-  })
-  return data.products.edges.map(({ node }) => ({
+function mapProductNode(node) {
+  return {
     id: node.id,
     title: node.title,
     description: node.description,
@@ -293,7 +348,32 @@ export async function fetchProducts(first = 20, lang = 'hr') {
     price: node.priceRange.minVariantPrice,
     variantId: node.variants.edges[0]?.node.id,
     availableForSale: node.variants.edges[0]?.node.availableForSale ?? false,
-  }))
+  }
+}
+
+export async function fetchProducts(first = 20, lang = 'hr') {
+  const data = await shopifyClient.request(PRODUCTS_QUERY, {
+    first,
+    language: toLanguageCode(lang),
+  })
+  return data.products.edges.map(({ node }) => mapProductNode(node))
+}
+
+export async function fetchCollections(first = 10, productsPerCollection = 50, lang = 'hr') {
+  const data = await shopifyClient.request(COLLECTIONS_QUERY, {
+    first,
+    productsPerCollection,
+    language: toLanguageCode(lang),
+  })
+  return data.collections.edges
+    .map(({ node }) => ({
+      id: node.id,
+      title: node.title,
+      description: node.description,
+      handle: node.handle,
+      products: node.products.edges.map(({ node: p }) => mapProductNode(p)),
+    }))
+    .filter((collection) => collection.products.length > 0)
 }
 
 export async function createCart() {
