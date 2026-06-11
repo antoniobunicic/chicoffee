@@ -168,44 +168,59 @@
   color: var(--color-muted);
 }
 
-/* Grid s crtama */
-.grid {
+/* Product cards — airy, minimal */
+.products {
   max-width: 1800px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  border-top: 1px solid var(--color-sand);
-  border-left: 1px solid var(--color-sand);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3.5rem 3rem;
 }
 
 .card {
+  position: relative;
+  flex: 0 1 300px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--color-sand);
-  border-bottom: 1px solid var(--color-sand);
-  padding: 1.25rem;
-  background: #fff;
 }
 
-/* Image */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -1rem;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 20px 45px rgba(26, 23, 20, 0.09);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
 .imgWrap {
+  position: relative;
+  z-index: 1;
   display: block;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
+  border-radius: 12px;
   background: #ede8e1;
   text-decoration: none;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.35rem;
 }
 
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.7s ease;
 }
 
 .card:hover .img {
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .imgPlaceholder {
@@ -214,12 +229,27 @@
   background: var(--color-sand);
 }
 
-/* Card body */
+.soldOutTag {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  background: rgba(26, 23, 20, 0.82);
+  color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.65rem;
+  border-radius: 100px;
+}
+
 .cardBody {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  flex: 1;
+  gap: 0.3rem;
 }
 
 .eyebrow {
@@ -238,10 +268,10 @@
 
 .title {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--color-text);
-  line-height: 1.2;
+  line-height: 1.25;
   transition: color 0.2s ease;
 }
 
@@ -249,68 +279,56 @@
   color: var(--color-brand);
 }
 
-.meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  margin-top: 0.1rem;
-}
-
 .vendor {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--color-muted);
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.9rem;
 }
 
 .price {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--color-text);
 }
 
-/* Add button — vidljiv na hoveru */
+/* Round add button */
 .addBtn {
-  margin-top: 1rem;
-  width: 100%;
-  padding: 0.7rem 1rem;
-  background: var(--color-text);
-  color: var(--color-text-light);
-  border: none;
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-sand);
+  background: transparent;
+  color: var(--color-text);
   cursor: pointer;
-  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
-  opacity: 0;
-  transform: translateY(4px);
-}
-
-.card:hover .addBtn {
-  opacity: 1;
-  transform: translateY(0);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .addBtn:hover {
   background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-text-light);
 }
 
 .addBtnAdded {
-  background: var(--color-brand) !important;
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-text-light);
 }
 
 .addBtn:disabled {
   cursor: not-allowed;
-}
-
-.card:hover .addBtn:disabled {
-  opacity: 0.45;
-  background: var(--color-sand);
-  color: var(--color-muted);
 }
 
 /* Responsive */
@@ -325,12 +343,17 @@
     object-position: center bottom;
   }
 
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .webshop {
     padding: 2.5rem 0 4rem;
+  }
+
+  .products {
+    padding: 0 1.25rem;
+    gap: 2.75rem 1.25rem;
+  }
+
+  .card {
+    flex: 0 1 calc(50% - 0.625rem);
   }
 
   .introRow {
@@ -350,38 +373,16 @@
     padding-right: 1.25rem;
   }
 
-  .card {
-    padding: 1rem;
-  }
-
   .imgWrap {
-    margin-bottom: 0.9rem;
+    margin-bottom: 1rem;
   }
 
   .title {
-    font-size: 0.88rem;
-  }
-
-  .vendor {
-    font-size: 0.65rem;
+    font-size: 1.05rem;
   }
 
   .price {
-    font-size: 0.82rem;
-  }
-
-  .addBtn {
-    opacity: 1;
-    transform: translateY(0);
-    font-size: 0.62rem;
-    padding: 0.6rem 0.75rem;
-    letter-spacing: 0.12em;
-  }
-
-  .addBtn:disabled {
-    opacity: 0.45;
-    background: var(--color-sand);
-    color: var(--color-muted);
+    font-size: 0.9rem;
   }
 }
 

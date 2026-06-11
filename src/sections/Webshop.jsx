@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Plus, Check } from '@phosphor-icons/react'
 import { fetchCollections } from '../shopify/queries'
 import { useCart } from '../context/CartContext'
 import { useLanguage } from '../context/LanguageContext'
@@ -38,6 +39,9 @@ function ProductCard({ product, onAdd, cartLoading }) {
         ) : (
           <div className={styles.imgPlaceholder} />
         )}
+        {!product.availableForSale && (
+          <span className={styles.soldOutTag}>{t.webshop.soldOut}</span>
+        )}
       </Link>
 
       <div className={styles.cardBody}>
@@ -47,19 +51,23 @@ function ProductCard({ product, onAdd, cartLoading }) {
         <Link to={`/webshop/${product.handle}`} className={styles.titleLink}>
           <h3 className={styles.title}>{product.title}</h3>
         </Link>
-        <div className={styles.meta}>
-          {product.vendor && (
-            <span className={styles.vendor}>{product.vendor}</span>
-          )}
+        {product.vendor && (
+          <span className={styles.vendor}>{product.vendor}</span>
+        )}
+
+        <div className={styles.priceRow}>
           <span className={styles.price}>{formatPrice(product.price, lang)}</span>
+          {product.availableForSale && (
+            <button
+              className={`${styles.addBtn} ${added ? styles.addBtnAdded : ''}`}
+              onClick={handleAdd}
+              disabled={cartLoading}
+              aria-label={t.webshop.addToCart}
+            >
+              {added ? <Check size={16} weight="bold" /> : <Plus size={16} weight="bold" />}
+            </button>
+          )}
         </div>
-        <button
-          className={`${styles.addBtn} ${added ? styles.addBtnAdded : ''}`}
-          onClick={handleAdd}
-          disabled={cartLoading || !product.availableForSale}
-        >
-          {!product.availableForSale ? t.webshop.soldOut : added ? t.webshop.added : t.webshop.addToCart}
-        </button>
       </div>
     </div>
   )
@@ -129,7 +137,7 @@ export default function Webshop() {
                 <p className={styles.collectionDesc}>{collection.description}</p>
               )}
             </div>
-            <div className={styles.grid}>
+            <div className={styles.products}>
               {collection.products.map((product) => (
                 <ProductCard
                   key={product.id}

@@ -76,7 +76,7 @@ export const translations = {
     webshop: {
       introKicker: 'Specialty kava',
       intro: [
-        'Tri raspoloženja kave — naš način prikazivanja kako osjećamo, doživljavamo i dijelimo kavu.',
+        'Tri raspoloženja kave — naš način iskazivanja kako osjećamo, doživljavamo i dijelimo kavu.',
         'To je oda pokretu i kulturi trećeg vala kave.',
         'Sve naše kave nabavljamo transparentno i etično, uvijek najviše kvalitete, pržene s pažnjom i preciznošću, uz individualan pristup svakoj pojedinoj seriji.',
         'Bez hijerarhije.\nSamo tvoje trenutno raspoloženje.',
