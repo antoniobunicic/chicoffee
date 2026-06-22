@@ -109,6 +109,63 @@ const COLLECTIONS_QUERY = gql`
   }
 `
 
+const LATEST_PER_COLLECTION_QUERY = gql`
+  query LatestPerCollection($first: Int!, $language: LanguageCode!) @inContext(language: $language) {
+    collections(first: $first) {
+      edges {
+        node {
+          id
+          handle
+          products(first: 1, sortKey: CREATED, reverse: true) {
+            edges {
+              node {
+                id
+                title
+                description
+                handle
+                productType
+                tags
+                vendor
+                metafields(identifiers: [
+                  { namespace: "custom", key: "country" }
+                  { namespace: "custom", key: "coffee_roast" }
+                ]) {
+                  namespace
+                  key
+                  value
+                  type
+                }
+                images(first: 1) {
+                  edges {
+                    node {
+                      url
+                      altText
+                    }
+                  }
+                }
+                priceRange {
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
+                variants(first: 1) {
+                  edges {
+                    node {
+                      id
+                      availableForSale
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 const CREATE_CART_MUTATION = gql`
   mutation CartCreate {
     cartCreate {
@@ -374,6 +431,24 @@ export async function fetchCollections(first = 10, productsPerCollection = 50, l
       products: node.products.edges.map(({ node: p }) => mapProductNode(p)),
     }))
     .filter((collection) => collection.products.length > 0)
+}
+
+export async function fetchLatestPerCollection(first = 10, lang = 'hr') {
+  const data = await shopifyClient.request(LATEST_PER_COLLECTION_QUERY, {
+    first,
+    language: toLanguageCode(lang),
+  })
+  const seen = new Set()
+  const list = []
+  for (const { node } of data.collections.edges) {
+    if (node.handle === 'frontpage') continue
+    const p = node.products.edges[0]?.node
+    if (p && !seen.has(p.id)) {
+      seen.add(p.id)
+      list.push(mapProductNode(p))
+    }
+  }
+  return list
 }
 
 export async function createCart() {

@@ -1,30 +1,84 @@
 .section {
-  background-color: #ECE4D8;
-  padding: 5rem 0 5.5rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  background-color: color-mix(in srgb, var(--color-brand) 6%, var(--color-bg));
+  padding: 7rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.title {
-  text-align: center;
+.stage {
+  position: relative;
+  width: 100%;
+}
+
+.circleWrap {
+  position: absolute;
+  top: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(380px, 44vw, 620px);
+  height: clamp(380px, 44vw, 620px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.circle {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: spin 22s linear infinite;
+}
+
+.circle text {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
-  color: var(--color-text);
-  line-height: 1.15;
-  margin: 0 0 3rem;
+  fill: var(--color-text);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circle {
+    animation: none;
+  }
 }
 
 .tiles {
+  position: relative;
+  z-index: 2;
+  max-width: 1500px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background-color: #ECE4D8;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+
+/* Staggered heights so the circle weaves across all three tiles */
+.tiles .tile:nth-child(1),
+.tiles .tile:nth-child(3) {
+  transform: translateY(-3rem);
+}
+
+.tiles .tile:nth-child(2) {
+  transform: translateY(3rem);
 }
 
 .cta {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin: 3rem auto 0;
   width: fit-content;
   font-family: var(--font-body);
   font-size: 0.72rem;
@@ -56,7 +110,7 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  padding: clamp(1.75rem, 4vw, 3.5rem);
+  padding: clamp(2rem, 4.5vw, 4rem);
   cursor: pointer;
   text-decoration: none;
 }
@@ -64,7 +118,7 @@
 .imgPlaceholder {
   width: 100%;
   height: 100%;
-  background: #ECE4D8;
+  background: transparent;
 }
 
 .img {
@@ -94,5 +148,11 @@
 @media (max-width: 640px) {
   .tiles {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tiles .tile:nth-child(1),
+  .tiles .tile:nth-child(2),
+  .tiles .tile:nth-child(3) {
+    transform: none;
   }
 }

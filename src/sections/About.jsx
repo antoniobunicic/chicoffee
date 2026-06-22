@@ -1,4 +1,5 @@
 import styles from './About.module.css'
+import LogoCHI from '../components/LogoCHI'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function About() {
@@ -6,6 +7,7 @@ export default function About() {
 
   return (
     <section id="o-nama" className={styles.about}>
+      <LogoCHI className={styles.bgLogo} aria-hidden="true" />
       <div className={styles.textCol}>
         <h2 className={styles.heading}>
           {t.about.heading}

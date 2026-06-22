@@ -1,6 +1,5 @@
 import styles from './Space.module.css'
 import spaceImg from '../assets/images/concept-store.webp'
-import LogoCHI from '../components/LogoCHI'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Space() {
@@ -8,7 +7,6 @@ export default function Space() {
 
   return (
     <section className={styles.space}>
-      <LogoCHI className={styles.bgLogo} aria-hidden="true" />
       <div className={styles.inner}>
       <div className={styles.imageCol}>
         <img src={spaceImg} alt={t.space.imageAlt} className={styles.image} />

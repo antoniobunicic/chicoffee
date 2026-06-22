@@ -21,7 +21,6 @@ export default function Story() {
       <div className={styles.inner}>
         <div className={styles.textCol}>
           <div className={styles.textContent}>
-            <span className={styles.eyebrow}>{t.story.eyebrow}</span>
             <h2 className={styles.heading}>
               {t.story.heading}
             </h2>

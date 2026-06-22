@@ -1,4 +1,6 @@
 .about {
+  position: relative;
+  overflow: hidden;
   background-color: var(--color-bg);
   min-height: 55vh;
   display: flex;
@@ -7,7 +9,21 @@
   padding: 7rem 2.5rem;
 }
 
+.bgLogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(380px, 58vw, 820px);
+  color: var(--color-brand);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .textCol {
+  position: relative;
+  z-index: 1;
   max-width: 760px;
   text-align: center;
   display: flex;

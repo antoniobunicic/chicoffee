@@ -21,7 +21,7 @@ export const translations = {
       closing: 'Naš cilj je jednostavan — svaki put isporučiti kavu najviše kvalitete, uz potpunu transparentnost i odgovoran pristup.',
     },
     about: {
-      heading: 'Kava s karakterom',
+      heading: 'Kava s karakterom.',
       body: 'Pažljivo birana zrna, promišljeno pripremljena kava i prostor u kojem je u redu zadržati se.',
     },
     story: {
@@ -82,7 +82,7 @@ export const translations = {
         'Bez hijerarhije.\nSamo tvoje trenutno raspoloženje.',
       ],
       sectionTitle: 'Trenutna rotacija',
-      homeCta: 'Vidi cijelu ponudu',
+      homeCta: 'Vidi cijelu ponudu na webshopu',
       productsLabel: 'proizvoda',
       byCategory: 'Po kategorijama',
       showAll: 'Prikaži sve',
@@ -144,7 +144,7 @@ export const translations = {
       closing: 'Our goal is simple — to deliver the highest quality coffee, transparently and consciously, every single time.',
     },
     about: {
-      heading: 'Coffee with character',
+      heading: 'Coffee with character.',
       body: 'Carefully selected beans, thoughtfully prepared coffee, and a space where it’s okay to stay a while.',
     },
     story: {
@@ -205,7 +205,7 @@ export const translations = {
         'No hierarchy.\nOnly your current mood.',
       ],
       sectionTitle: 'Current rotation',
-      homeCta: 'See the full offering',
+      homeCta: 'See the full offering in the webshop',
       productsLabel: 'products',
       byCategory: 'By category',
       showAll: 'Show all',
