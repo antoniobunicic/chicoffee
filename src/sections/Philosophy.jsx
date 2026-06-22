@@ -2,6 +2,7 @@ import styles from './Philosophy.module.css'
 import { useLanguage } from '../context/LanguageContext'
 import coverImg from '../assets/images/philosophy/pour-over-brewing.jpg'
 import midImg from '../assets/images/coffee.jpg'
+import sketchSvg from '../assets/images/sketch-cups.svg'
 
 export default function Philosophy() {
   const { t } = useLanguage()
@@ -30,6 +31,8 @@ export default function Philosophy() {
         </div>
 
         <p className={styles.closing}>{t.philosophy.closing}</p>
+
+        <img src={sketchSvg} alt="" className={styles.sketch} aria-hidden="true" />
       </section>
     </>
   )

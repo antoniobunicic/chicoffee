@@ -1,0 +1,48 @@
+.section {
+  background: var(--color-bg);
+  padding: 2.5rem 0 0;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 45s linear infinite;
+  will-change: transform;
+}
+
+.img {
+  height: 400px;
+  width: auto;
+  aspect-ratio: 3 / 4;
+  margin-right: 2.5rem;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 1.75rem 0 0;
+  }
+
+  .img {
+    height: 260px;
+    margin-right: 1.75rem;
+  }
+}

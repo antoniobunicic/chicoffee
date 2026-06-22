@@ -41,7 +41,14 @@
       "Bash(rsvg-convert -w 48 -h 48 /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.svg -o /tmp/fav48.png)",
       "Bash(magick /tmp/fav16.png /tmp/fav48.png /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon-32.png /Users/antoniobunicic/IdeaProjects/Vreva/chicoffee/public/favicon.ico)",
       "Bash(node *)",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Bash(pip3 install *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(mv \"Untitled-1_0038_IMG_1795.jpg.mp4\"   reel-1.mp4)",
+      "Bash(mv \"Untitled-1_0038_IMG_1795.jpg-2.mp4\" reel-2.mp4)",
+      "Bash(mv \"Untitled-1_0038_IMG_1795.jpg_2.mp4\" reel-3.mp4)",
+      "Bash(mv \"Untitled-1_0038_IMG_1795.jpg_4.mp4\" reel-4.mp4)",
+      "Bash(mv \"Untitled-1_0038_IMG_1795.jpg_5.mp4\" reel-5.mp4)"
     ]
   }
 }

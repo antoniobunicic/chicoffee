@@ -1,5 +1,5 @@
 import styles from './Hero.module.css'
-import heroImg from '../assets/images/hero.webp'
+import heroImg from '../assets/images/IMG_1395.jpg'
 import LogoAnimated from '../components/LogoAnimated'
 
 export default function Hero() {

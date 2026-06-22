@@ -58,6 +58,9 @@ export default function CartDrawer() {
                     <Link to={`/webshop/${line.handle}`} className={styles.itemTitleLink} onClick={closeCart}>
                       <span className={styles.itemTitle}>{line.title}</span>
                     </Link>
+                    {line.variantTitle && line.variantTitle.toLowerCase() !== 'default title' && (
+                      <span className={styles.itemVariant}>{line.variantTitle}</span>
+                    )}
                     <span className={styles.itemPrice}>{formatPrice(line.price, lang)}</span>
                     <div className={styles.qty}>
                       <button

@@ -1,6 +1,14 @@
+import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
-import logoSvg from '../assets/images/logo.svg'
 import { useLanguage } from '../context/LanguageContext'
+
+const FOOTER_LINKS = [
+  { key: 'home', to: '/' },
+  { key: 'philosophy', to: '/philosophy' },
+  { key: 'nar', to: '/nar' },
+  { key: 'kontakt', to: '/kontakt' },
+  { key: 'webshop', to: '/webshop' },
+]
 
 export default function Footer() {
   const { t } = useLanguage()
@@ -10,9 +18,18 @@ export default function Footer() {
       <div className={styles.inner}>
 
         <div className={styles.brand}>
-          <img src={logoSvg} alt="CHI Coffee" className={styles.logo} />
+          <span className={styles.logo} role="img" aria-label="CHI Coffee" />
           <p className={styles.slogan}>{t.footer.slogan}</p>
         </div>
+
+        <nav className={styles.nav}>
+          <p className={styles.contactLabel}>{t.footer.menuLabel}</p>
+          {FOOTER_LINKS.map(({ key, to }) => (
+            <Link key={to} to={to} className={styles.navLink}>
+              {t.nav[key]}
+            </Link>
+          ))}
+        </nav>
 
         <div className={styles.contact}>
           <p className={styles.contactLabel}>{t.footer.visitLabel}</p>

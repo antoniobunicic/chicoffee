@@ -6,17 +6,35 @@
 
 .inner {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 4rem;
   padding: 5rem 6rem;
   border-bottom: 1px solid rgba(214, 201, 182, 0.12);
 }
 
+.navLink {
+  display: block;
+  width: fit-content;
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-sand);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--color-text-light);
+}
+
 .logo {
+  display: block;
   width: 100px;
-  height: auto;
+  height: 100px;
   margin-bottom: 1.25rem;
-  filter: brightness(0) invert(1);
+  background-color: var(--color-sand);
+  -webkit-mask: url('../assets/images/logo.svg') no-repeat center / contain;
+  mask: url('../assets/images/logo.svg') no-repeat center / contain;
 }
 
 .slogan {
@@ -28,17 +46,17 @@
 }
 
 .contactLabel {
-  font-size: 0.6rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 300;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-brand);
+  color: var(--color-sand);
   margin-bottom: 0.75rem;
 }
 
-.contact p,
+.contact p:not(.contactLabel),
 .contact a,
-.hours p {
+.hours p:not(.contactLabel) {
   font-size: 0.85rem;
   font-weight: 300;
   line-height: 1.9;
@@ -73,9 +91,10 @@
     font-size: 0.75rem;
   }
 
-  .contact p,
+  .contact p:not(.contactLabel),
   .contact a,
-  .hours p {
+  .hours p:not(.contactLabel),
+  .navLink {
     font-size: 0.75rem;
   }
 

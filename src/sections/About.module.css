@@ -1,41 +1,18 @@
 .about {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 80vh;
-}
-
-.imageCol {
-  padding: 6rem;
   background-color: var(--color-bg);
+  min-height: 55vh;
   display: flex;
   align-items: center;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 2px;
+  justify-content: center;
+  padding: 7rem 2.5rem;
 }
 
 .textCol {
-  background-color: var(--color-bg);
+  max-width: 760px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 7rem 6rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.sketch {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 40%;
-  opacity: 0.1;
-  pointer-events: none;
+  align-items: center;
 }
 
 .eyebrow {
@@ -87,15 +64,6 @@
 
 @media (max-width: 900px) {
   .about {
-    grid-template-columns: 1fr;
-  }
-
-  .imageCol {
-    padding: 2rem;
-    min-height: 60vw;
-  }
-
-  .textCol {
-    padding: 4rem 2.5rem;
+    padding: 4rem 2rem;
   }
 }

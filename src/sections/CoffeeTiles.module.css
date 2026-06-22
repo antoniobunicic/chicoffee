@@ -1,13 +1,62 @@
+.section {
+  background-color: #ECE4D8;
+  padding: 5rem 0 5.5rem;
+}
+
+.title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 1.15;
+  margin: 0 0 3rem;
+}
+
 .tiles {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background-color: var(--color-bg-dark);
+  background-color: #ECE4D8;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 3rem auto 0;
+  width: fit-content;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-brand);
+  transition: color 0.25s ease;
+}
+
+.cta::after {
+  content: '→';
+  font-size: 0.95rem;
+  transition: transform 0.25s ease;
+}
+
+.cta:hover {
+  color: var(--color-brand);
+}
+
+.cta:hover::after {
+  transform: translateX(4px);
 }
 
 .tile {
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
+  padding: clamp(1.75rem, 4vw, 3.5rem);
   cursor: pointer;
   text-decoration: none;
 }
@@ -15,13 +64,13 @@
 .imgPlaceholder {
   width: 100%;
   height: 100%;
-  background: var(--color-bg-dark);
+  background: #ECE4D8;
 }
 
 .img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transition: transform 0.6s ease;
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Plus, Check } from '@phosphor-icons/react'
 import { fetchCollections } from '../shopify/queries'
@@ -39,9 +39,6 @@ function ProductCard({ product, onAdd, cartLoading }) {
         ) : (
           <div className={styles.imgPlaceholder} />
         )}
-        {!product.availableForSale && (
-          <span className={styles.soldOutTag}>{t.webshop.soldOut}</span>
-        )}
       </Link>
 
       <div className={styles.cardBody}>
@@ -57,7 +54,7 @@ function ProductCard({ product, onAdd, cartLoading }) {
 
         <div className={styles.priceRow}>
           <span className={styles.price}>{formatPrice(product.price, lang)}</span>
-          {product.availableForSale && (
+          {product.availableForSale ? (
             <button
               className={`${styles.addBtn} ${added ? styles.addBtnAdded : ''}`}
               onClick={handleAdd}
@@ -66,6 +63,8 @@ function ProductCard({ product, onAdd, cartLoading }) {
             >
               {added ? <Check size={16} weight="bold" /> : <Plus size={16} weight="bold" />}
             </button>
+          ) : (
+            <span className={styles.soldOut}>{t.webshop.soldOut}</span>
           )}
         </div>
       </div>
@@ -77,6 +76,7 @@ export default function Webshop() {
   const [collections, setCollections] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [viewMode, setViewMode] = useState('categories')
   const { addItem, loading: cartLoading } = useCart()
   const { t, lang } = useLanguage()
 
@@ -91,12 +91,23 @@ export default function Webshop() {
     return () => { cancelled = true }
   }, [lang])
 
+  const allProducts = useMemo(() => {
+    const seen = new Set()
+    const list = []
+    for (const c of collections) {
+      for (const p of c.products) {
+        if (!seen.has(p.id)) { seen.add(p.id); list.push(p) }
+      }
+    }
+    return list
+  }, [collections])
+
   let content
   if (loading) {
     content = <p className={styles.status}>{t.webshop.loading}</p>
   } else if (error) {
     content = <p className={styles.status}>{t.webshop.error}</p>
-  } else if (collections.length === 0) {
+  } else if (allProducts.length === 0) {
     content = <p className={styles.status}>{t.webshop.empty}</p>
   }
 
@@ -110,45 +121,73 @@ export default function Webshop() {
           <div className={styles.introCol}>
             <h1 className={styles.shopTitle}>SHOP</h1>
             <div className={styles.intro}>
-              <span className={styles.introKicker}>{t.webshop.introKicker}</span>
-              {t.webshop.intro.map((para, i) => {
-                const isLead = i === 0
-                const isClosing = i === t.webshop.intro.length - 1
-                const cls = isLead
-                  ? styles.introLead
-                  : isClosing
-                  ? styles.introClosing
-                  : styles.introPara
-                return (
-                  <p key={i} className={cls}>{para}</p>
-                )
-              })}
+              {t.webshop.intro.map((para, i) => (
+                <p key={i} className={i === 0 ? styles.introLead : styles.introPara}>{para}</p>
+              ))}
             </div>
           </div>
           <div className={styles.introImageCol}>
             <img src={stackedImg} alt="" className={styles.introImage} />
           </div>
         </div>
-        {content || collections.map((collection) => (
-          <div key={collection.id} className={styles.collection}>
-            <div className={styles.collectionHeader}>
-              <h2 className={styles.sectionTitle}>{collection.title}</h2>
-              {collection.description && (
-                <p className={styles.collectionDesc}>{collection.description}</p>
-              )}
+
+        {content || (
+          <>
+            <div className={styles.filterBar}>
+              <span className={styles.count}>
+                {allProducts.length} {t.webshop.productsLabel}
+              </span>
+              <div className={styles.viewToggle}>
+                <button
+                  className={`${styles.viewBtn} ${viewMode === 'categories' ? styles.viewActive : ''}`}
+                  onClick={() => setViewMode('categories')}
+                >
+                  {t.webshop.byCategory}
+                </button>
+                <button
+                  className={`${styles.viewBtn} ${viewMode === 'all' ? styles.viewActive : ''}`}
+                  onClick={() => setViewMode('all')}
+                >
+                  {t.webshop.showAll}
+                </button>
+              </div>
             </div>
-            <div className={styles.products}>
-              {collection.products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAdd={addItem}
-                  cartLoading={cartLoading}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
+
+            {viewMode === 'categories' ? (
+              collections.map((collection) => (
+                <div key={collection.id} className={styles.collection}>
+                  <div className={styles.collectionHeader}>
+                    <h2 className={styles.sectionTitle}>{collection.title}</h2>
+                    {collection.description && (
+                      <p className={styles.collectionDesc}>{collection.description}</p>
+                    )}
+                  </div>
+                  <div className={styles.products}>
+                    {collection.products.map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        onAdd={addItem}
+                        cartLoading={cartLoading}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className={styles.products}>
+                {allProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onAdd={addItem}
+                    cartLoading={cartLoading}
+                  />
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </section>
     </>
   )

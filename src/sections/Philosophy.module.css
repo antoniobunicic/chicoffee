@@ -106,6 +106,14 @@
   max-width: 24ch;
 }
 
+.sketch {
+  width: clamp(140px, 18vw, 220px);
+  height: auto;
+  margin-top: 5rem;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .closing::before {
   content: '';
   position: absolute;

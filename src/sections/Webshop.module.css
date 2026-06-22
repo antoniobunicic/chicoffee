@@ -30,10 +30,9 @@
 }
 
 .introRow {
-  max-width: 1800px;
-  margin: 1rem auto 6rem;
+  margin: 1rem 0 0;
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: 1fr 0.4fr;
   gap: 4rem;
   align-items: center;
 }
@@ -43,16 +42,10 @@
   flex-direction: column;
 }
 
-.introImageCol {
-  align-self: stretch;
-}
-
 .introImage {
   width: 100%;
-  height: 100%;
-  min-height: 460px;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
+  object-fit: contain;
   border-radius: 2px;
   display: block;
 }
@@ -111,29 +104,50 @@
   margin-bottom: 0;
 }
 
-/* Accented closing statement with divider */
-.introClosing {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
-  line-height: 1.5;
-  color: var(--color-brand);
-  white-space: pre-line;
-  margin-top: 2.75rem;
-  padding-top: 2.75rem;
-  position: relative;
+/* Filter / view bar — full-bleed dividers */
+.filterBar {
+  margin: 4rem -2.5rem 3.5rem;
+  padding: 1.1rem 2.5rem;
+  border-top: 1px solid var(--color-sand);
+  border-bottom: 1px solid var(--color-sand);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
 }
 
-.introClosing::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 1px;
-  background: var(--color-sand);
+.count {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+.viewToggle {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.viewBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color 0.2s ease;
+}
+
+.viewBtn:hover {
+  color: var(--color-text);
+}
+
+.viewActive {
+  color: var(--color-text);
 }
 
 .collection {
@@ -145,8 +159,7 @@
 }
 
 .collectionHeader {
-  max-width: 1800px;
-  margin: 0 auto 2.5rem;
+  margin: 0 0 2.5rem;
 }
 
 .sectionTitle {
@@ -154,7 +167,7 @@
   font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   color: var(--color-text);
   line-height: 1.2;
 }
@@ -170,10 +183,10 @@
 
 /* Product cards — airy, minimal */
 .products {
-  max-width: 1800px;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 3.5rem 3rem;
 }
 
@@ -207,7 +220,8 @@
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: 12px;
-  background: #ede8e1;
+  background: transparent;
+  padding: 1rem;
   text-decoration: none;
   margin-bottom: 1.35rem;
 }
@@ -215,8 +229,8 @@
 .img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s ease;
+  object-fit: contain;
+  transition: transform 0.5s ease;
 }
 
 .card:hover .img {
@@ -229,19 +243,13 @@
   background: var(--color-sand);
 }
 
-.soldOutTag {
-  position: absolute;
-  top: 0.85rem;
-  left: 0.85rem;
-  background: rgba(26, 23, 20, 0.82);
-  color: var(--color-text-light);
+.soldOut {
   font-family: var(--font-body);
-  font-size: 0.58rem;
+  font-size: 0.62rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 0.35rem 0.65rem;
-  border-radius: 100px;
+  color: var(--color-muted);
 }
 
 .cardBody {
@@ -336,6 +344,13 @@
   .webshop {
     padding: 3rem 3rem 5rem;
   }
+
+  .filterBar {
+    margin-left: -3rem;
+    margin-right: -3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -356,16 +371,17 @@
     flex: 0 1 calc(50% - 0.625rem);
   }
 
+  .filterBar {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1rem 1.25rem;
+  }
+
   .introRow {
     grid-template-columns: 1fr;
     gap: 2.5rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-  }
-
-  .introImage {
-    min-height: 0;
-    aspect-ratio: 4 / 3;
   }
 
   .collectionHeader {
