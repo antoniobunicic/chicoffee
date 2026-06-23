@@ -85,10 +85,18 @@
 .offering {
   padding: 1.25rem 0;
   border-top: 1px solid var(--color-sand);
+  cursor: pointer;
 }
 
 .offering:last-child {
   border-bottom: 1px solid var(--color-sand);
+}
+
+.offeringHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .offeringLabel {
@@ -98,15 +106,62 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text);
-  margin-bottom: 0.4rem;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+/* Tap affordance — only on touch devices (no hover) */
+.offeringArrow {
+  display: none;
+  flex-shrink: 0;
+  color: var(--color-brand);
+  transition: transform 0.3s ease;
+}
+
+@media (hover: none) {
+  .offeringArrow {
+    display: block;
+  }
+}
+
+.offering.open .offeringArrow {
+  transform: rotate(180deg);
+}
+
+/* Description collapses to nothing; expands on hover / tap */
+.offeringTextWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
 }
 
 .offeringText {
+  overflow: hidden;
+  min-height: 0;
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 300;
   line-height: 1.7;
   color: var(--color-muted);
+}
+
+.offering.open .offeringTextWrap {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+@media (hover: hover) {
+  .offering:hover .offeringLabel {
+    color: var(--color-brand);
+  }
+
+  .offering:hover .offeringTextWrap {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 0.5rem;
+  }
 }
 
 @media (max-width: 900px) {

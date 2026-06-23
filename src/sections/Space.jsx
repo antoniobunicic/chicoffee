@@ -1,9 +1,12 @@
+import { useState } from 'react'
+import { CaretDown } from '@phosphor-icons/react'
 import styles from './Space.module.css'
 import spaceImg from '../assets/images/concept-store.webp'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Space() {
   const { t } = useLanguage()
+  const [openIndex, setOpenIndex] = useState(null)
 
   return (
     <section className={styles.space}>
@@ -23,10 +26,19 @@ export default function Space() {
         </p>
 
         <div className={styles.offerings}>
-          {t.space.offerings.map(({ label, text }) => (
-            <div key={label} className={styles.offering}>
-              <h4 className={styles.offeringLabel}>{label}</h4>
-              <p className={styles.offeringText}>{text}</p>
+          {t.space.offerings.map(({ label, text }, i) => (
+            <div
+              key={label}
+              className={`${styles.offering} ${openIndex === i ? styles.open : ''}`}
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+            >
+              <div className={styles.offeringHead}>
+                <h4 className={styles.offeringLabel}>{label}</h4>
+                <CaretDown className={styles.offeringArrow} size={16} weight="bold" aria-hidden="true" />
+              </div>
+              <div className={styles.offeringTextWrap}>
+                <p className={styles.offeringText}>{text}</p>
+              </div>
             </div>
           ))}
         </div>

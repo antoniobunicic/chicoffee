@@ -147,12 +147,21 @@
 
 @media (max-width: 640px) {
   .tiles {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tiles .tile {
+    flex: 0 0 50%;
   }
 
   .tiles .tile:nth-child(1),
-  .tiles .tile:nth-child(2),
-  .tiles .tile:nth-child(3) {
+  .tiles .tile:nth-child(2) {
     transform: none;
+  }
+
+  .tiles .tile:nth-child(3) {
+    transform: translateY(-1rem);
   }
 }
