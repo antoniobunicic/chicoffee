@@ -6,7 +6,7 @@ const FOOTER_LINKS = [
   { key: 'home', to: '/' },
   { key: 'philosophy', to: '/philosophy' },
   { key: 'nar', to: '/nar' },
-  { key: 'kontakt', to: '/kontakt' },
+  { key: 'kontakt', to: '/lokacije' },
   { key: 'webshop', to: '/webshop' },
 ]
 
@@ -19,7 +19,6 @@ export default function Footer() {
 
         <div className={styles.brand}>
           <span className={styles.logo} role="img" aria-label="CHI Coffee" />
-          <p className={styles.slogan}>{t.footer.slogan}</p>
         </div>
 
         <nav className={styles.nav}>
@@ -33,15 +32,31 @@ export default function Footer() {
 
         <div className={styles.contact}>
           <p className={styles.contactLabel}>{t.footer.visitLabel}</p>
-          <p>Preradovićeva 34, Zagreb</p>
           <a href="https://www.instagram.com/chispecialtycoffee" target="_blank" rel="noopener noreferrer">
             @chispecialtycoffee
           </a>
+          <a href="mailto:chi_coffee@yahoo.com">chi_coffee@yahoo.com</a>
         </div>
 
         <div className={styles.hours}>
-          <p className={styles.contactLabel}>{t.footer.hoursLabel}</p>
-          <p>{t.footer.hoursValue}</p>
+          <p className={styles.contactLabel}>{t.footer.locationsLabel}</p>
+
+          <div className={styles.footerLoc}>
+            <p className={styles.footerLocName}>Zagreb</p>
+            <p>{t.footer.hoursZagreb}</p>
+          </div>
+
+          <div className={styles.footerLoc}>
+            <p className={styles.footerLocName}>Trogir</p>
+            <p>
+              {t.footer.hoursTrogir.split('\n').map((line, i) => (
+                <span key={i}>
+                  {line}
+                  {i < t.footer.hoursTrogir.split('\n').length - 1 && <br />}
+                </span>
+              ))}
+            </p>
+          </div>
         </div>
 
       </div>

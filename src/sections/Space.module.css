@@ -1,34 +1,21 @@
 .space {
-  display: grid;
   background-color: var(--color-bg);
   overflow: hidden;
-}
-
-.space > * {
-  grid-area: 1/1;
-}
-
-.bgLogo {
-  color: var(--color-brand);
-  opacity: 0.06;
-  width: 50%;
-  align-self: center;
-  justify-self: end;
-  pointer-events: none;
 }
 
 .inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  position: relative;
-  z-index: 1;
 }
 
 .imageCol {
+  position: relative;
   overflow: hidden;
 }
 
 .image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -37,10 +24,14 @@
 }
 
 .textCol {
-  padding: 7rem 5rem;
+  padding: var(--space-xl) var(--space-2xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Reserve room for one open description so hovering doesn't grow the section
+     (and push the footer). The content is centred, so it just sits with a little
+     breathing room when everything is collapsed. */
+  min-height: 820px;
 }
 
 .eyebrow {
@@ -51,7 +42,7 @@
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--color-brand);
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-md);
 }
 
 .heading {
@@ -61,7 +52,7 @@
   text-transform: uppercase;
   line-height: 1.15;
   color: var(--color-text);
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-md);
 }
 
 .heading em {
@@ -74,7 +65,7 @@
   font-weight: 300;
   line-height: 1.8;
   color: var(--color-muted);
-  margin-bottom: 3rem;
+  margin-bottom: var(--space-lg);
 }
 
 .offerings {
@@ -82,8 +73,41 @@
   flex-direction: column;
 }
 
+.locationsCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-lg);
+  width: fit-content;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  padding-bottom: var(--space-2xs);
+  border-bottom: 1px solid var(--color-brand);
+  transition: color 0.25s ease;
+}
+
+.locationsCta::after {
+  content: '→';
+  font-size: 0.95rem;
+  transition: transform 0.25s ease;
+}
+
+.locationsCta:hover {
+  color: var(--color-brand);
+}
+
+.locationsCta:hover::after {
+  transform: translateX(4px);
+}
+
 .offering {
-  padding: 1.25rem 0;
+  position: relative;
+  padding: var(--space-md) 0;
   border-top: 1px solid var(--color-sand);
   cursor: pointer;
 }
@@ -175,13 +199,7 @@
   }
 
   .textCol {
-    padding: 4rem 2.5rem;
-  }
-
-  .bgLogo {
-    width: 100%;
-    justify-self: stretch;
-    align-self: start;
-    margin-top: 60vw;
+    padding: var(--space-xl) var(--space-lg);
+    min-height: 0;
   }
 }

@@ -1,0 +1,68 @@
+.wrap {
+  min-height: 100vh;
+  background-color: var(--color-bg-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8rem 2.5rem;
+}
+
+.code {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(5rem, 18vw, 11rem);
+  line-height: 1;
+  color: var(--color-brand);
+  letter-spacing: 0.02em;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-light);
+  margin: 1.5rem 0 1rem;
+}
+
+.text {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--color-sand);
+  max-width: 42ch;
+  margin-bottom: 2.5rem;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-brand);
+  transition: opacity 0.25s ease;
+}
+
+.cta::before {
+  content: '←';
+  font-size: 0.95rem;
+  transition: transform 0.25s ease;
+}
+
+.cta:hover {
+  opacity: 0.7;
+}
+
+.cta:hover::before {
+  transform: translateX(-4px);
+}

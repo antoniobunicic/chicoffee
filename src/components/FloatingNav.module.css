@@ -70,6 +70,64 @@
   transition: color 0.25s ease;
 }
 
+/* Reveal-on-scroll-up top bar */
+.revealBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 2.5rem;
+  background: var(--color-bg-dark);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+  transform: translateY(-100%);
+  transition: transform 0.35s ease;
+  pointer-events: none;
+}
+
+.revealedBar {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.revealLeft,
+.revealRight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.revealHamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: rgba(247, 243, 238, 0.85);
+  transition: color 0.25s ease;
+}
+
+.revealHamburger:hover {
+  color: var(--color-brand);
+}
+
+.revealLogo {
+  display: flex;
+  align-items: center;
+  color: rgba(247, 243, 238, 0.92);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.revealLogo:hover {
+  color: var(--color-brand);
+}
+
 .hamburger:hover {
   color: var(--color-brand);
 }

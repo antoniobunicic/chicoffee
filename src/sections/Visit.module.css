@@ -1,29 +1,10 @@
 .visit {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-}
-
-.imageCol {
-  overflow: hidden;
-  min-height: 600px;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.infoCol {
   background-color: var(--color-bg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 6rem 5rem;
 }
 
+.intro {
+  padding: 6rem 5rem 3rem;
+}
 
 .eyebrow {
   display: block;
@@ -42,7 +23,6 @@
   font-weight: 400;
   line-height: 1.15;
   color: var(--color-text);
-  margin-bottom: 3rem;
 }
 
 .heading em {
@@ -50,16 +30,71 @@
   font-weight: 400;
 }
 
-.details {
+/* Locations — alternating map / info rows */
+.locations {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 3rem;
+}
+
+.location {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: stretch;
+  border-top: 1px solid var(--color-sand);
+}
+
+.mapCol,
+.videoCol {
+  position: relative;
+  overflow: hidden;
+  min-height: 777px;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  cursor: pointer;
+}
+
+/* Trogir (even): mirror to info | video | map */
+.location:nth-child(even) .infoCol {
+  order: 1;
+}
+
+.location:nth-child(even) .videoCol {
+  order: 2;
+}
+
+.location:nth-child(even) .mapCol {
+  order: 3;
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.25rem 2.5rem;
+}
+
+.locationName {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
 }
 
 .detailGroup {
   border-top: 1px solid var(--color-sand);
-  padding-top: 1.25rem;
+  padding-top: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .detailLabel {
@@ -76,12 +111,13 @@
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 300;
-  line-height: 1.8;
+  line-height: 1.6;
   color: var(--color-text);
 }
 
 .mapLink {
   display: inline-block;
+  margin-top: 0.5rem;
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 400;
@@ -97,8 +133,16 @@
   opacity: 0.7;
 }
 
+/* Shared contact */
+.contact {
+  border-top: 1px solid var(--color-sand);
+  padding: 4rem 5rem 6rem;
+}
+
 .emailLink {
-  color: inherit;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
   text-decoration: none;
   border-bottom: 1px solid var(--color-sand);
   transition: border-color 0.2s ease;
@@ -108,19 +152,79 @@
   border-color: var(--color-brand);
 }
 
+/* Video lightbox */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(12, 9, 6, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: modalFade 0.25s ease;
+}
+
+.modalVideo {
+  max-width: min(92vw, 540px);
+  max-height: 86vh;
+  border-radius: 4px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+}
+
+.modalClose {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: rgba(247, 243, 238, 0.85);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.modalClose:hover {
+  color: #fff;
+}
+
+@keyframes modalFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (max-width: 900px) {
-  .visit {
+  .intro {
+    padding: 4rem 2.5rem 2rem;
+  }
+
+  .location {
     grid-template-columns: 1fr;
   }
 
-  .imageCol {
+  .mapCol,
+  .videoCol {
+    min-height: 0;
     height: 60vw;
-    max-height: 500px;
-    order: 1;
+    max-height: 420px;
   }
 
   .infoCol {
-    padding: 4rem 2.5rem;
-    order: 0;
+    order: 1 !important;
+    padding: 3rem 2.5rem;
+  }
+
+  .mapCol {
+    order: 2 !important;
+  }
+
+  .videoCol {
+    order: 3 !important;
+  }
+
+  .contact {
+    padding: 3rem 2.5rem 4rem;
   }
 }

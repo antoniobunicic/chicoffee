@@ -29,12 +29,25 @@
 
 .logo {
   display: block;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 1.25rem;
+  width: 210px;
+  height: 210px;
   background-color: var(--color-sand);
   -webkit-mask: url('../assets/images/logo.svg') no-repeat center / contain;
   mask: url('../assets/images/logo.svg') no-repeat center / contain;
+}
+
+.footerLoc {
+  margin-bottom: 1.1rem;
+}
+
+.footerLoc:last-child {
+  margin-bottom: 0;
+}
+
+.footerLocName {
+  color: var(--color-text-light) !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.15rem;
 }
 
 .slogan {
@@ -61,6 +74,11 @@
   font-weight: 300;
   line-height: 1.9;
   color: var(--color-sand);
+}
+
+.contact a {
+  display: block;
+  width: fit-content;
 }
 
 .contact a:hover {

@@ -12,6 +12,7 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "dompurify": "^3.4.1",
+    "framer-motion": "^12.41.0",
     "graphql": "^16.13.1",
     "graphql-request": "^7.4.0",
     "leaflet": "^1.9.4",

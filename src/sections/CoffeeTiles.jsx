@@ -22,6 +22,7 @@ function CircularTitle({ text, fontSize }) {
       if (!el || cancelled) return
       el.style.letterSpacing = '0px'
       const len = el.getComputedTextLength()
+      if (!len) return
       const gaps = Math.max(repeated.length - 1, 1)
       setSpacing((CIRCUMFERENCE - len) / gaps)
     }

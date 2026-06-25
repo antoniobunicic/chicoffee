@@ -1,12 +1,8 @@
-.pageTransition {
-  animation: pageIn 0.5s ease both;
-}
-
-@keyframes pageIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* Pages overlap during the cross-dissolve; the outgoing one (opaque, with its
+   own section backgrounds) stays underneath so the page background never shows
+   through between routes. */
+.page {
+  position: relative;
+  min-height: 100vh;
+  transform-origin: 50% 0;
 }

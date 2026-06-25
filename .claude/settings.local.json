@@ -50,7 +50,8 @@
       "Bash(mv \"Untitled-1_0038_IMG_1795.jpg_4.mp4\" reel-4.mp4)",
       "Bash(mv \"Untitled-1_0038_IMG_1795.jpg_5.mp4\" reel-5.mp4)",
       "Bash(perl -i -pe \"s/^  const sep = .*/  const sep = String.fromCharCode\\(160, 160\\) + '\\\\xE2\\\\x80\\\\xA2' + String.fromCharCode\\(160, 160\\)/ if \\\\$. >= 8 && \\\\$. <= 10\" src/sections/CoffeeTiles.jsx)",
-      "Bash(sed -n '7,11p' src/sections/CoffeeTiles.jsx)"
+      "Bash(sed -n '7,11p' src/sections/CoffeeTiles.jsx)",
+      "Bash(pkill -f vite)"
     ]
   }
 }

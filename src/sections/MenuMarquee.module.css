@@ -1,6 +1,6 @@
 .section {
   background: var(--color-bg);
-  padding: 2.5rem 0 0;
+  padding: var(--space-lg) 0 0;
   overflow: hidden;
 }
 
@@ -15,7 +15,7 @@
   height: 400px;
   width: auto;
   aspect-ratio: 3 / 4;
-  margin-right: 2.5rem;
+  margin-right: var(--space-lg);
   object-fit: cover;
   display: block;
   flex-shrink: 0;
@@ -38,11 +38,11 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 1.75rem 0 0;
+    padding: var(--space-md) 0 0;
   }
 
   .img {
     height: 260px;
-    margin-right: 1.75rem;
+    margin-right: var(--space-md);
   }
 }

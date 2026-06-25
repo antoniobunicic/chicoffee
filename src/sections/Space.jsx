@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { CaretDown } from '@phosphor-icons/react'
 import styles from './Space.module.css'
 import spaceImg from '../assets/images/concept-store.webp'
@@ -42,6 +43,10 @@ export default function Space() {
             </div>
           ))}
         </div>
+
+        <Link to="/lokacije" className={styles.locationsCta}>
+          {t.space.locationsCta}
+        </Link>
       </div>
       </div>
     </section>

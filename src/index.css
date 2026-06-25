@@ -122,6 +122,19 @@
   --font-body: 'Switzer', system-ui, sans-serif;
   --font-heading: 'ABC Maxi Round', system-ui, sans-serif;
 
+  /* Spacing scale — one source of truth, consistent rhythm.
+     Adopt incrementally: padding/margin/gap: var(--space-md) etc. */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 5rem;
+  --space-3xl: 7rem;
+  --space-4xl: 10rem;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -136,7 +149,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: #0f0a05;
+  background-color: var(--color-bg);
   color: var(--color-text);
   overflow-x: hidden;
   max-width: 100%;

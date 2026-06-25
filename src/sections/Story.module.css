@@ -28,11 +28,11 @@
   min-height: 90vh;
   display: flex;
   align-items: center;
-  padding: 6rem 0;
+  padding: var(--space-2xl) 0;
 }
 
 .textCol {
-  padding: 0 6rem;
+  padding: 0 var(--space-2xl);
   max-width: 1100px;
 }
 
@@ -49,7 +49,7 @@
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--color-brand);
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-md);
 }
 
 .heading {
@@ -59,7 +59,7 @@
   text-transform: uppercase;
   line-height: 1.1;
   color: var(--color-text-light);
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-lg);
 }
 
 .body {
@@ -68,7 +68,7 @@
   font-weight: 300;
   line-height: 1.85;
   color: var(--color-sand);
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-md);
 }
 
 .lead {
@@ -77,7 +77,7 @@
   font-weight: 300;
   line-height: 1.7;
   color: var(--color-sand);
-  margin-bottom: 2.75rem;
+  margin-bottom: var(--space-lg);
 }
 
 .cta {
@@ -89,12 +89,12 @@
   text-transform: uppercase;
   color: var(--color-text-light);
   text-decoration: none;
-  padding-bottom: 0.5rem;
+  padding-bottom: var(--space-2xs);
   border-bottom: 1px solid var(--color-brand);
   transition: color 0.25s ease, border-color 0.25s ease, gap 0.25s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: var(--space-2xs);
 }
 
 .cta::after {
@@ -113,7 +113,7 @@
 
 @media (max-width: 900px) {
   .textCol {
-    padding: 0 2.5rem;
+    padding: 0 var(--space-lg);
     max-width: 100%;
   }
 
