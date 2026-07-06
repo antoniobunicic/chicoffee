@@ -51,7 +51,17 @@
       "Bash(mv \"Untitled-1_0038_IMG_1795.jpg_5.mp4\" reel-5.mp4)",
       "Bash(perl -i -pe \"s/^  const sep = .*/  const sep = String.fromCharCode\\(160, 160\\) + '\\\\xE2\\\\x80\\\\xA2' + String.fromCharCode\\(160, 160\\)/ if \\\\$. >= 8 && \\\\$. <= 10\" src/sections/CoffeeTiles.jsx)",
       "Bash(sed -n '7,11p' src/sections/CoffeeTiles.jsx)",
-      "Bash(pkill -f vite)"
+      "Bash(pkill -f vite)",
+      "Bash(command -v cwebp)",
+      "Bash(command -v magick)",
+      "Bash(command -v convert)",
+      "Bash(command -v sips)",
+      "Bash(cd *)",
+      "Bash(mv IMG_1395.jpg coffee-beans.jpg)",
+      "Bash(mv menu/IMG_5187.webp menu/iced-matcha.webp)",
+      "Bash(mv menu/IMG_5234.webp menu/custard-danish.webp)",
+      "Bash(mv menu/IMG_5252.webp menu/latte-banana-bread.webp)",
+      "Bash(mv webshop/IMG_1350-Edit.jpg webshop/coffee-boxes-shelf.jpg)"
     ]
   }
 }
