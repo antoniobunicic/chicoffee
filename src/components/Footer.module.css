@@ -6,7 +6,7 @@
 
 .inner {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1.8fr;
   gap: 4rem;
   padding: 5rem 6rem;
   border-bottom: 1px solid rgba(214, 201, 182, 0.12);
@@ -44,6 +44,16 @@
   margin-bottom: 0;
 }
 
+.locGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+}
+
+.locGrid .footerLoc {
+  margin-bottom: 0;
+}
+
 .footerLocName {
   color: var(--color-text-light) !important;
   font-weight: 500 !important;
@@ -67,27 +77,53 @@
   margin-bottom: 0.75rem;
 }
 
-.contact p:not(.contactLabel),
-.contact a,
-.hours p:not(.contactLabel) {
+.visit p:not(.contactLabel),
+.visit a {
   font-size: 0.85rem;
   font-weight: 300;
   line-height: 1.9;
   color: var(--color-sand);
 }
 
-.contact a {
+.visit a {
   display: block;
   width: fit-content;
 }
 
-.contact a:hover {
+.visit a:hover {
   color: var(--color-text-light);
+}
+
+.footerContact {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(214, 201, 182, 0.12);
 }
 
 .bottom {
   padding: 1.5rem 6rem;
   text-align: center;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.legalLink {
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--color-sand);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legalLink:hover {
+  color: var(--color-text-light);
 }
 
 .bottom p {
@@ -109,9 +145,8 @@
     font-size: 0.75rem;
   }
 
-  .contact p:not(.contactLabel),
-  .contact a,
-  .hours p:not(.contactLabel),
+  .visit p:not(.contactLabel),
+  .visit a,
   .navLink {
     font-size: 0.75rem;
   }

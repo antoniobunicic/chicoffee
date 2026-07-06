@@ -61,7 +61,15 @@
       "Bash(mv menu/IMG_5187.webp menu/iced-matcha.webp)",
       "Bash(mv menu/IMG_5234.webp menu/custard-danish.webp)",
       "Bash(mv menu/IMG_5252.webp menu/latte-banana-bread.webp)",
-      "Bash(mv webshop/IMG_1350-Edit.jpg webshop/coffee-boxes-shelf.jpg)"
+      "Bash(mv webshop/IMG_1350-Edit.jpg webshop/coffee-boxes-shelf.jpg)",
+      "Bash(ls src/pages/)",
+      "Bash(grep -rniE \"uvjet|pravil|privatnost|kolačić|cookie|dostav|povrat|reklamacij|impressum|gdpr|terms|policy|zaštit\" src/components/Footer.jsx src/sections/ src/pages/)",
+      "Bash(perl -i -CSD -pe 's/\\\\x{043E}/o/g; s/\\\\x{0452}/đ/g;' src/i18n/legal.js)",
+      "Bash(perl -CSD -i -pe 's/navo[^\\\\x00-\\\\x7F]+enja/navođenja/g; s/odg[^\\\\x00-\\\\x7F]+anja/odgađanja/g;' src/i18n/legal.js)",
+      "Bash(timeout 12 npx vite --port 5199)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5199/politika-privatnosti)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5199/impressum)"
     ]
   }
 }

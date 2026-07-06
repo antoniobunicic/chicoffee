@@ -4,6 +4,7 @@ import { LanguageProvider } from './context/LanguageContext'
 import { CartProvider } from './context/CartContext'
 import FloatingNav from './components/FloatingNav'
 import CartDrawer from './components/CartDrawer'
+import CookieBanner from './components/CookieBanner'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import PhilosophyPage from './pages/PhilosophyPage'
@@ -11,7 +12,9 @@ import WebshopPage from './pages/WebshopPage'
 import NarPage from './pages/NarPage'
 import ProductPage from './pages/ProductPage'
 import Kontakt from './pages/Kontakt'
+import LegalPage from './pages/LegalPage'
 import NotFound from './pages/NotFound'
+import { LEGAL_PAGES } from './i18n/legal'
 import styles from './App.module.css'
 
 // The NEW page fades in ON TOP; the OLD one stays FULLY opaque underneath for
@@ -60,6 +63,9 @@ function AnimatedRoutes() {
           <Route path="/webshop/:handle" element={<ProductPage />} />
           <Route path="/nar" element={<NarPage />} />
           <Route path="/lokacije" element={<Kontakt />} />
+          {LEGAL_PAGES.map(({ key, slug }) => (
+            <Route key={key} path={slug} element={<LegalPage docKey={key} />} />
+          ))}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
@@ -76,6 +82,7 @@ export default function App() {
           <CartDrawer />
           <AnimatedRoutes />
           <Footer />
+          <CookieBanner />
         </CartProvider>
       </LanguageProvider>
     </BrowserRouter>

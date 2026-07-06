@@ -1,0 +1,149 @@
+.page {
+  background: var(--color-bg);
+  min-height: 100vh;
+}
+
+/* Header band — mirrors the dark, centered treatment used across the site. */
+.header {
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
+  text-align: center;
+  padding: 9rem 2.5rem 3.5rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+}
+
+.updated {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sand);
+  margin-top: 1.25rem;
+}
+
+/* Body — a single readable measure, left-aligned like a document. */
+.body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4.5rem 2.5rem 6rem;
+}
+
+.intro {
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--color-text);
+  margin-bottom: 3.5rem;
+}
+
+.section {
+  margin-bottom: 2.75rem;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+  margin-bottom: 1rem;
+}
+
+.para {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+}
+
+.para:last-child {
+  margin-bottom: 0;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.list li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-muted);
+}
+
+.list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-brand);
+}
+
+.para a,
+.list a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+
+.para a:hover,
+.list a:hover {
+  opacity: 0.75;
+}
+
+/* Related legal pages */
+.related {
+  margin-top: 4.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(138, 106, 74, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+}
+
+.relatedLink {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.relatedLink:hover {
+  color: var(--color-brand);
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 7rem 1.5rem 2.75rem;
+  }
+
+  .body {
+    padding: 3rem 1.5rem 4.5rem;
+  }
+}

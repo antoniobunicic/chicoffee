@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 import { useLanguage } from '../context/LanguageContext'
+import { legal, LEGAL_PAGES } from '../i18n/legal'
 
 const FOOTER_LINKS = [
   { key: 'home', to: '/' },
@@ -11,7 +12,7 @@ const FOOTER_LINKS = [
 ]
 
 export default function Footer() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
 
   return (
     <footer className={styles.footer}>
@@ -30,38 +31,46 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className={styles.contact}>
-          <p className={styles.contactLabel}>{t.footer.visitLabel}</p>
-          <a href="https://www.instagram.com/chispecialtycoffee" target="_blank" rel="noopener noreferrer">
-            @chispecialtycoffee
-          </a>
-          <a href="mailto:chi_coffee@yahoo.com">chi_coffee@yahoo.com</a>
-        </div>
+        <div className={styles.visit}>
+          <p className={styles.contactLabel}>{t.footer.visitTitle}</p>
 
-        <div className={styles.hours}>
-          <p className={styles.contactLabel}>{t.footer.locationsLabel}</p>
+          <div className={styles.locGrid}>
+            <div className={styles.footerLoc}>
+              <p className={styles.footerLocName}>Zagreb</p>
+              <p>{t.footer.hoursZagreb}</p>
+            </div>
 
-          <div className={styles.footerLoc}>
-            <p className={styles.footerLocName}>Zagreb</p>
-            <p>{t.footer.hoursZagreb}</p>
+            <div className={styles.footerLoc}>
+              <p className={styles.footerLocName}>Trogir</p>
+              <p>
+                {t.footer.hoursTrogir.split('\n').map((line, i, arr) => (
+                  <span key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </span>
+                ))}
+              </p>
+            </div>
           </div>
 
-          <div className={styles.footerLoc}>
-            <p className={styles.footerLocName}>Trogir</p>
-            <p>
-              {t.footer.hoursTrogir.split('\n').map((line, i) => (
-                <span key={i}>
-                  {line}
-                  {i < t.footer.hoursTrogir.split('\n').length - 1 && <br />}
-                </span>
-              ))}
-            </p>
+          <div className={styles.footerContact}>
+            <a href="mailto:chi_coffee@yahoo.com">chi_coffee@yahoo.com</a>
+            <a href="https://www.instagram.com/chispecialtycoffee" target="_blank" rel="noopener noreferrer">
+              @chispecialtycoffee
+            </a>
           </div>
         </div>
 
       </div>
 
       <div className={styles.bottom}>
+        <nav className={styles.legal} aria-label={t.footer.legalLabel}>
+          {LEGAL_PAGES.map(({ key, slug }) => (
+            <Link key={key} to={slug} className={styles.legalLink}>
+              {legal[lang][key].title}
+            </Link>
+          ))}
+        </nav>
         <p>© {new Date().getFullYear()} CHI Coffee. {t.footer.rights}</p>
       </div>
     </footer>
