@@ -1,4 +1,12 @@
+/* Fixed behind the content so scrolling to the end reveals it (see App.module.css
+   / index.css). The footer must stay shorter than the viewport for the reveal to
+   fully show it — on mobile it's compacted to fit ~one screen (see media query). */
 .footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
   background-color: var(--color-bg-dark);
   color: var(--color-text-light);
   font-family: var(--font-body);
@@ -102,7 +110,6 @@
 
 .bottom {
   padding: 1.5rem 6rem;
-  text-align: center;
 }
 
 .legal {
@@ -111,6 +118,33 @@
   justify-content: center;
   gap: 0.5rem 1.5rem;
   margin-bottom: 1rem;
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.vreva {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.vrevaLogo {
+  display: block;
+  height: 22px;
+  aspect-ratio: 142.03 / 129.9;
+  flex-shrink: 0;
+  background-color: var(--color-muted);
+  -webkit-mask: url('../assets/images/logo-vreva.svg') no-repeat center / contain;
+  mask: url('../assets/images/logo-vreva.svg') no-repeat center / contain;
+  transition: background-color 0.2s ease;
+}
+
+.vreva:hover .vrevaLogo {
+  background-color: var(--color-sand);
 }
 
 .legalLink {
@@ -134,15 +168,35 @@
 }
 
 @media (max-width: 900px) {
-  .inner {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding: 4rem 2.5rem;
+  /* Compact the footer to fit one screen so the reveal shows all of it. */
+  .footer {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
 
-  .slogan {
-    white-space: normal;
-    font-size: 0.75rem;
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 2rem;
+    padding: 2.5rem 2rem 1.75rem;
+    border-bottom: none;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .locGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footerContact {
+    margin-top: 1rem;
+    padding-top: 1rem;
   }
 
   .visit p:not(.contactLabel),
@@ -152,11 +206,13 @@
   }
 
   .contactLabel {
-    font-size: 0.55rem;
+    font-size: 0.6rem;
   }
 
+  /* Push the legal/copyright bar to the very bottom of the screen-height footer. */
   .bottom {
-    padding: 1.5rem 2.5rem;
+    margin-top: auto;
+    padding: 1.5rem 2rem;
   }
 
   .bottom p {

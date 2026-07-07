@@ -155,6 +155,13 @@ body {
   max-width: 100%;
 }
 
+/* Reserve the reveal space for the fixed footer (see Footer.module.css).
+   padding never margin-collapses, so this reliably extends the scroll height, and
+   the fixed footer shows through because the body background is the canvas behind it. */
+body {
+  padding-bottom: var(--footer-height, 480px);
+}
+
 img {
   display: block;
   max-width: 100%;

@@ -6,3 +6,13 @@
   min-height: 100vh;
   transform-origin: 50% 0;
 }
+
+/* Reveal-on-scroll footer: the content sits above the fixed footer with its own
+   opaque background, covering it while scrolling. The reveal space is reserved
+   with padding-bottom on <body> (see index.css) so the fixed footer is uncovered
+   at the end of the scroll. --footer-height is measured in Footer.jsx. */
+.content {
+  position: relative;
+  z-index: 1;
+  background: var(--color-bg);
+}

@@ -56,7 +56,7 @@ export default function FloatingNav() {
           </Link>
         </div>
         <div className={styles.revealRight}>
-          <LanguageSwitch />
+          <LanguageSwitch className={styles.langSwitch} />
           <CartIcon />
         </div>
       </div>

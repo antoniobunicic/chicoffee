@@ -69,7 +69,10 @@
       "Bash(timeout 12 npx vite --port 5199)",
       "Read(//tmp/**)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5199/politika-privatnosti)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5199/impressum)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5199/impressum)",
+      "Bash(find . -iname \"*vreva*\" -not -path \"*/node_modules/*\")",
+      "Bash(find src/assets -iname \"*logo*\")",
+      "Bash(ls public/)"
     ]
   }
 }

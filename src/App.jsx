@@ -80,7 +80,9 @@ export default function App() {
         <CartProvider>
           <FloatingNav />
           <CartDrawer />
-          <AnimatedRoutes />
+          <div className={styles.content}>
+            <AnimatedRoutes />
+          </div>
           <Footer />
           <CookieBanner />
         </CartProvider>
