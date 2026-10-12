@@ -80,6 +80,14 @@ export default function ProductDetail() {
         <nav className={styles.breadcrumb}>
           <Link to="/shop" className={styles.breadcrumbLink}>{t.product.breadcrumb}</Link>
           <span className={styles.breadcrumbSep}>/</span>
+          {product.collection && (
+            <>
+              <Link to={`/shop#${product.collection.handle}`} className={styles.breadcrumbLink}>
+                {product.collection.title}
+              </Link>
+              <span className={styles.breadcrumbSep}>/</span>
+            </>
+          )}
           <span className={styles.breadcrumbCurrent}>{product.title}</span>
         </nav>
         <div className={styles.layout}>

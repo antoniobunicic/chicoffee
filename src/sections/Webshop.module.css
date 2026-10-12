@@ -167,6 +167,7 @@
 
 .collection {
   margin-bottom: 5rem;
+  scroll-margin-top: 6rem;
 }
 
 .collection:last-child {

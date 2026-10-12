@@ -191,6 +191,14 @@ const PRODUCT_BY_HANDLE_QUERY = gql`
         id
         name
       }
+      collections(first: 5) {
+        edges {
+          node {
+            handle
+            title
+          }
+        }
+      }
       metafields(identifiers: [
         { namespace: "custom", key: "country" }
         { namespace: "custom", key: "coffee_roast" }
@@ -267,6 +275,10 @@ export async function fetchProductByHandle(handle, lang = 'hr') {
     images: p.images.edges.map(({ node }) => node),
     price: p.priceRange.minVariantPrice,
     options: p.options.map((option) => option.name),
+    // Shopify's automatic "Home page" collection isn't a real category
+    collection: p.collections.edges
+      .map(({ node }) => node)
+      .find((c) => c.handle !== 'frontpage') || null,
     variants: p.variants.edges.map(({ node }) => node),
   }
 }

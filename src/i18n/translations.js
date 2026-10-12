@@ -131,7 +131,7 @@ export const translations = {
     product: {
       loading: 'Učitavanje...',
       notFound: 'Proizvod nije pronađen.',
-      breadcrumb: 'Webshop',
+      breadcrumb: 'Shop',
       origin: 'Porijeklo',
       roast: 'Prženje',
       variant: 'Varijanta',
@@ -299,7 +299,7 @@ export const translations = {
     product: {
       loading: 'Loading...',
       notFound: 'Product not found.',
-      breadcrumb: 'Webshop',
+      breadcrumb: 'Shop',
       origin: 'Origin',
       roast: 'Roast',
       variant: 'Variant',

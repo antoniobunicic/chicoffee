@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Plus, Check } from '@phosphor-icons/react'
 import { fetchCollections } from '../shopify/queries'
 import { useCart } from '../context/CartContext'
@@ -102,6 +102,7 @@ export default function Webshop() {
   const [viewMode, setViewMode] = useState('categories')
   const { addItem, loading: cartLoading } = useCart()
   const { t, lang } = useLanguage()
+  const { hash } = useLocation()
 
   useEffect(() => {
     let cancelled = false
@@ -113,6 +114,12 @@ export default function Webshop() {
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
   }, [lang, reloadKey])
+
+  // /shop#<collection-handle> (e.g. from a product breadcrumb) jumps to that collection once it renders
+  useEffect(() => {
+    if (loading || !hash) return
+    document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ behavior: 'instant' })
+  }, [loading, hash])
 
   const sortedCollections = useMemo(
     () => collections.map((c) => ({ ...c, products: sortAvailableFirst(c.products) })),
@@ -197,7 +204,7 @@ export default function Webshop() {
 
             {viewMode === 'categories' ? (
               sortedCollections.map((collection) => (
-                <div key={collection.id} className={styles.collection}>
+                <div key={collection.id} id={collection.handle} className={styles.collection}>
                   <div className={styles.collectionHeader}>
                     <h2 className={styles.sectionTitle}>{collection.title}</h2>
                     {collection.description && (
