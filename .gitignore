@@ -28,3 +28,6 @@ yarn-error.log*
 
 # Vite
 *.local
+
+# Claude Code (local tooling)
+.claude/
