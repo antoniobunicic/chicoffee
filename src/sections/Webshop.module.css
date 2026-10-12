@@ -29,6 +29,28 @@
   font-size: 0.9rem;
 }
 
+.retryBtn {
+  margin-top: 1.25rem;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--color-sand);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.retryBtn:hover {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-text-light);
+}
+
 .introRow {
   margin: 1rem 0 0;
   display: grid;
@@ -69,16 +91,6 @@
   align-items: flex-start;
 }
 
-.introKicker {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--color-brand);
-  margin-bottom: 1.75rem;
-}
-
 /* Big editorial lead line */
 .introLead {
   font-family: var(--font-heading);
@@ -98,6 +110,7 @@
   color: var(--color-muted);
   max-width: 70ch;
   margin-bottom: 1.1rem;
+  white-space: pre-line;
 }
 
 .introPara:last-of-type {
@@ -131,7 +144,8 @@
 .viewBtn {
   background: none;
   border: none;
-  padding: 0;
+  border-bottom: 1px solid transparent;
+  padding: 0 0 0.25rem;
   cursor: pointer;
   font-family: var(--font-body);
   font-size: 0.7rem;
@@ -148,6 +162,7 @@
 
 .viewActive {
   color: var(--color-text);
+  border-bottom-color: currentColor;
 }
 
 .collection {
@@ -184,15 +199,13 @@
 /* Product cards — airy, minimal */
 .products {
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 3.5rem 3rem;
 }
 
 .card {
   position: relative;
-  flex: 0 1 300px;
   display: flex;
   flex-direction: column;
 }
@@ -243,12 +256,28 @@
   background: var(--color-sand);
 }
 
-.soldOut {
+.soldOutBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-bg-dark);
+  color: var(--color-text-light);
   font-family: var(--font-body);
   font-size: 0.62rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.cardSoldOut .img {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+}
+
+.cardSoldOut .price {
   color: var(--color-muted);
 }
 
@@ -307,10 +336,16 @@
   color: var(--color-text);
 }
 
+.priceFrom {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
 /* Round add button */
 .addBtn {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -319,6 +354,7 @@
   border: 1px solid var(--color-sand);
   background: transparent;
   color: var(--color-text);
+  text-decoration: none;
   cursor: pointer;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
@@ -362,14 +398,11 @@
     padding: 2.5rem 0 4rem;
   }
 
+  /* One product per row, edge-to-edge, with a large image */
   .products {
     padding: 0;
+    grid-template-columns: 1fr;
     gap: 3rem 0;
-  }
-
-  /* One product per row, edge-to-edge, with a large image */
-  .card {
-    flex: 0 1 100%;
   }
 
   .card::before {
@@ -398,9 +431,9 @@
   }
 
   .imgWrap {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 2;
     border-radius: 0;
-    padding: 1.25rem;
+    padding: 1.5rem 2.5rem;
     margin-bottom: 1rem;
   }
 
@@ -418,10 +451,6 @@
 }
 
 @media (max-width: 640px) {
-  .heroOverlay {
-    padding: 2.5rem;
-  }
-
   .heroHeader {
     height: 52vh;
   }

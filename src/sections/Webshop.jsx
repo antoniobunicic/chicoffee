@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Plus, Check } from '@phosphor-icons/react'
 import { fetchCollections } from '../shopify/queries'
@@ -15,21 +15,33 @@ function formatPrice(price, lang) {
   }).format(parseFloat(price.amount))
 }
 
+// Available products first; Array#sort is stable, so Shopify's order is kept within each group.
+function sortAvailableFirst(products) {
+  return [...products].sort((a, b) => Number(b.availableForSale) - Number(a.availableForSale))
+}
+
 function ProductCard({ product, onAdd, cartLoading }) {
   const [added, setAdded] = useState(false)
+  const resetTimer = useRef(null)
   const { t, lang } = useLanguage()
+  const productUrl = `/shop/${product.handle}`
+  const eyebrow = [product.metafields.country, product.metafields.coffee_roast]
+    .filter(Boolean)
+    .join(' · ') || product.productType
 
-  async function handleAdd(e) {
-    e.preventDefault()
+  useEffect(() => () => clearTimeout(resetTimer.current), [])
+
+  async function handleAdd() {
     if (!product.variantId) return
-    await onAdd(product.variantId)
+    if (!(await onAdd(product.variantId))) return
     setAdded(true)
-    setTimeout(() => setAdded(false), 2000)
+    clearTimeout(resetTimer.current)
+    resetTimer.current = setTimeout(() => setAdded(false), 2000)
   }
 
   return (
-    <div className={styles.card}>
-      <Link to={`/shop/${product.handle}`} className={styles.imgWrap}>
+    <div className={`${styles.card} ${product.availableForSale ? '' : styles.cardSoldOut}`}>
+      <Link to={productUrl} className={styles.imgWrap}>
         {product.image ? (
           <img
             src={product.image.url}
@@ -39,13 +51,14 @@ function ProductCard({ product, onAdd, cartLoading }) {
         ) : (
           <div className={styles.imgPlaceholder} />
         )}
+        {!product.availableForSale && (
+          <span className={styles.soldOutBadge}>{t.webshop.soldOut}</span>
+        )}
       </Link>
 
       <div className={styles.cardBody}>
-        {product.productType && (
-          <span className={styles.eyebrow}>{product.productType}</span>
-        )}
-        <Link to={`/shop/${product.handle}`} className={styles.titleLink}>
+        {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
+        <Link to={productUrl} className={styles.titleLink}>
           <h3 className={styles.title}>{product.title}</h3>
         </Link>
         {product.vendor && (
@@ -53,19 +66,28 @@ function ProductCard({ product, onAdd, cartLoading }) {
         )}
 
         <div className={styles.priceRow}>
-          <span className={styles.price}>{formatPrice(product.price, lang)}</span>
-          {product.availableForSale ? (
+          <span className={styles.price}>
+            {product.priceVaries && (
+              <span className={styles.priceFrom}>{t.webshop.priceFrom} </span>
+            )}
+            {formatPrice(product.price, lang)}
+          </span>
+          {product.availableForSale && (product.hasMultipleVariants ? (
+            // Several variants (e.g. weight) — the choice is made on the product page
+            <Link to={productUrl} className={styles.addBtn} aria-label={t.webshop.chooseOption}>
+              <Plus size={18} weight="bold" />
+            </Link>
+          ) : (
             <button
+              type="button"
               className={`${styles.addBtn} ${added ? styles.addBtnAdded : ''}`}
               onClick={handleAdd}
               disabled={cartLoading}
               aria-label={t.webshop.addToCart}
             >
-              {added ? <Check size={16} weight="bold" /> : <Plus size={16} weight="bold" />}
+              {added ? <Check size={18} weight="bold" /> : <Plus size={18} weight="bold" />}
             </button>
-          ) : (
-            <span className={styles.soldOut}>{t.webshop.soldOut}</span>
-          )}
+          ))}
         </div>
       </div>
     </div>
@@ -76,6 +98,7 @@ export default function Webshop() {
   const [collections, setCollections] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [reloadKey, setReloadKey] = useState(0)
   const [viewMode, setViewMode] = useState('categories')
   const { addItem, loading: cartLoading } = useCart()
   const { t, lang } = useLanguage()
@@ -89,7 +112,12 @@ export default function Webshop() {
       .catch((err) => { if (!cancelled) { console.error('Shopify error:', err); setError(err.message) } })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [lang])
+  }, [lang, reloadKey])
+
+  const sortedCollections = useMemo(
+    () => collections.map((c) => ({ ...c, products: sortAvailableFirst(c.products) })),
+    [collections]
+  )
 
   const allProducts = useMemo(() => {
     const seen = new Set()
@@ -99,14 +127,24 @@ export default function Webshop() {
         if (!seen.has(p.id)) { seen.add(p.id); list.push(p) }
       }
     }
-    return list
+    return sortAvailableFirst(list)
   }, [collections])
+
+  const pluralCategory = new Intl.PluralRules(lang).select(allProducts.length)
+  const productsLabel = t.webshop.products[pluralCategory] ?? t.webshop.products.other
 
   let content
   if (loading) {
     content = <p className={styles.status}>{t.webshop.loading}</p>
   } else if (error) {
-    content = <p className={styles.status}>{t.webshop.error}</p>
+    content = (
+      <div className={styles.status}>
+        <p>{t.webshop.error}</p>
+        <button type="button" className={styles.retryBtn} onClick={() => setReloadKey((k) => k + 1)}>
+          {t.webshop.retry}
+        </button>
+      </div>
+    )
   } else if (allProducts.length === 0) {
     content = <p className={styles.status}>{t.webshop.empty}</p>
   }
@@ -135,18 +173,22 @@ export default function Webshop() {
           <>
             <div className={styles.filterBar}>
               <span className={styles.count}>
-                {allProducts.length} {t.webshop.productsLabel}
+                {allProducts.length} {productsLabel}
               </span>
               <div className={styles.viewToggle}>
                 <button
+                  type="button"
                   className={`${styles.viewBtn} ${viewMode === 'categories' ? styles.viewActive : ''}`}
                   onClick={() => setViewMode('categories')}
+                  aria-pressed={viewMode === 'categories'}
                 >
                   {t.webshop.byCategory}
                 </button>
                 <button
+                  type="button"
                   className={`${styles.viewBtn} ${viewMode === 'all' ? styles.viewActive : ''}`}
                   onClick={() => setViewMode('all')}
+                  aria-pressed={viewMode === 'all'}
                 >
                   {t.webshop.showAll}
                 </button>
@@ -154,7 +196,7 @@ export default function Webshop() {
             </div>
 
             {viewMode === 'categories' ? (
-              collections.map((collection) => (
+              sortedCollections.map((collection) => (
                 <div key={collection.id} className={styles.collection}>
                   <div className={styles.collectionHeader}>
                     <h2 className={styles.sectionTitle}>{collection.title}</h2>

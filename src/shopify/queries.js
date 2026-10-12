@@ -1,46 +1,84 @@
 import { gql } from 'graphql-request'
 import { shopifyClient } from './client'
 
-const PRODUCTS_QUERY = gql`
-  query Products($first: Int!, $language: LanguageCode!) @inContext(language: $language) {
-    products(first: $first) {
+// Shared by every product grid/tile. Two variants are enough to tell a
+// single-variant product (quick add) from one that needs a choice.
+const PRODUCT_CARD_FIELDS = gql`
+  fragment ProductCardFields on Product {
+    id
+    title
+    description
+    handle
+    productType
+    tags
+    vendor
+    availableForSale
+    metafields(identifiers: [
+      { namespace: "custom", key: "country" }
+      { namespace: "custom", key: "coffee_roast" }
+    ]) {
+      namespace
+      key
+      value
+      type
+    }
+    images(first: 1) {
+      edges {
+        node {
+          url
+          altText
+        }
+      }
+    }
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    variants(first: 2) {
       edges {
         node {
           id
-          title
-          description
-          handle
-          productType
-          tags
-          vendor
-          metafields(identifiers: [
-            { namespace: "custom", key: "country" }
-            { namespace: "custom", key: "coffee_roast" }
-          ]) {
-            namespace
-            key
-            value
-            type
-          }
-          images(first: 1) {
-            edges {
-              node {
-                url
-                altText
+          availableForSale
+        }
+      }
+    }
+  }
+`
+
+const CART_FIELDS = gql`
+  fragment CartFields on Cart {
+    id
+    checkoutUrl
+    lines(first: 50) {
+      edges {
+        node {
+          id
+          quantity
+          merchandise {
+            ... on ProductVariant {
+              id
+              title
+              product {
+                title
+                handle
+                images(first: 1) {
+                  edges {
+                    node {
+                      url
+                      altText
+                    }
+                  }
+                }
               }
-            }
-          }
-          priceRange {
-            minVariantPrice {
-              amount
-              currencyCode
-            }
-          }
-          variants(first: 1) {
-            edges {
-              node {
-                id
-                availableForSale
+              price {
+                amount
+                currencyCode
               }
             }
           }
@@ -51,6 +89,7 @@ const PRODUCTS_QUERY = gql`
 `
 
 const COLLECTIONS_QUERY = gql`
+  ${PRODUCT_CARD_FIELDS}
   query Collections($first: Int!, $productsPerCollection: Int!, $language: LanguageCode!) @inContext(language: $language) {
     collections(first: $first) {
       edges {
@@ -62,44 +101,7 @@ const COLLECTIONS_QUERY = gql`
           products(first: $productsPerCollection) {
             edges {
               node {
-                id
-                title
-                description
-                handle
-                productType
-                tags
-                vendor
-                metafields(identifiers: [
-                  { namespace: "custom", key: "country" }
-                  { namespace: "custom", key: "coffee_roast" }
-                ]) {
-                  namespace
-                  key
-                  value
-                  type
-                }
-                images(first: 1) {
-                  edges {
-                    node {
-                      url
-                      altText
-                    }
-                  }
-                }
-                priceRange {
-                  minVariantPrice {
-                    amount
-                    currencyCode
-                  }
-                }
-                variants(first: 1) {
-                  edges {
-                    node {
-                      id
-                      availableForSale
-                    }
-                  }
-                }
+                ...ProductCardFields
               }
             }
           }
@@ -110,6 +112,7 @@ const COLLECTIONS_QUERY = gql`
 `
 
 const LATEST_PER_COLLECTION_QUERY = gql`
+  ${PRODUCT_CARD_FIELDS}
   query LatestPerCollection($first: Int!, $language: LanguageCode!) @inContext(language: $language) {
     collections(first: $first) {
       edges {
@@ -119,44 +122,7 @@ const LATEST_PER_COLLECTION_QUERY = gql`
           products(first: 1, sortKey: CREATED, reverse: true) {
             edges {
               node {
-                id
-                title
-                description
-                handle
-                productType
-                tags
-                vendor
-                metafields(identifiers: [
-                  { namespace: "custom", key: "country" }
-                  { namespace: "custom", key: "coffee_roast" }
-                ]) {
-                  namespace
-                  key
-                  value
-                  type
-                }
-                images(first: 1) {
-                  edges {
-                    node {
-                      url
-                      altText
-                    }
-                  }
-                }
-                priceRange {
-                  minVariantPrice {
-                    amount
-                    currencyCode
-                  }
-                }
-                variants(first: 1) {
-                  edges {
-                    node {
-                      id
-                      availableForSale
-                    }
-                  }
-                }
+                ...ProductCardFields
               }
             }
           }
@@ -178,123 +144,33 @@ const CREATE_CART_MUTATION = gql`
 `
 
 const ADD_TO_CART_MUTATION = gql`
+  ${CART_FIELDS}
   mutation CartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
     cartLinesAdd(cartId: $cartId, lines: $lines) {
       cart {
-        id
-        checkoutUrl
-        lines(first: 50) {
-          edges {
-            node {
-              id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  product {
-                    title
-                    handle
-                    images(first: 1) {
-                      edges {
-                        node {
-                          url
-                          altText
-                        }
-                      }
-                    }
-                  }
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...CartFields
       }
     }
   }
 `
 
 const UPDATE_CART_LINES_MUTATION = gql`
+  ${CART_FIELDS}
   mutation CartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
     cartLinesUpdate(cartId: $cartId, lines: $lines) {
       cart {
-        id
-        checkoutUrl
-        lines(first: 50) {
-          edges {
-            node {
-              id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  product {
-                    title
-                    handle
-                    images(first: 1) {
-                      edges {
-                        node {
-                          url
-                          altText
-                        }
-                      }
-                    }
-                  }
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...CartFields
       }
     }
   }
 `
 
 const REMOVE_CART_LINES_MUTATION = gql`
+  ${CART_FIELDS}
   mutation CartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
-        id
-        checkoutUrl
-        lines(first: 50) {
-          edges {
-            node {
-              id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  product {
-                    title
-                    handle
-                    images(first: 1) {
-                      edges {
-                        node {
-                          url
-                          altText
-                        }
-                      }
-                    }
-                  }
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...CartFields
       }
     }
   }
@@ -337,6 +213,9 @@ const PRODUCT_BY_HANDLE_QUERY = gql`
           amount
           currencyCode
         }
+      }
+      options {
+        name
       }
       variants(first: 10) {
         edges {
@@ -387,6 +266,7 @@ export async function fetchProductByHandle(handle, lang = 'hr') {
     metafields: parseMetafields(p.metafields),
     images: p.images.edges.map(({ node }) => node),
     price: p.priceRange.minVariantPrice,
+    options: p.options.map((option) => option.name),
     variants: p.variants.edges.map(({ node }) => node),
   }
 }
@@ -403,17 +283,11 @@ function mapProductNode(node) {
     metafields: parseMetafields(node.metafields),
     image: node.images.edges[0]?.node || null,
     price: node.priceRange.minVariantPrice,
+    priceVaries: node.priceRange.minVariantPrice.amount !== node.priceRange.maxVariantPrice.amount,
     variantId: node.variants.edges[0]?.node.id,
-    availableForSale: node.variants.edges[0]?.node.availableForSale ?? false,
+    hasMultipleVariants: node.variants.edges.length > 1,
+    availableForSale: node.availableForSale,
   }
-}
-
-export async function fetchProducts(first = 20, lang = 'hr') {
-  const data = await shopifyClient.request(PRODUCTS_QUERY, {
-    first,
-    language: toLanguageCode(lang),
-  })
-  return data.products.edges.map(({ node }) => mapProductNode(node))
 }
 
 export async function fetchCollections(first = 10, productsPerCollection = 50, lang = 'hr') {
@@ -433,6 +307,13 @@ export async function fetchCollections(first = 10, productsPerCollection = 50, l
     .filter((collection) => collection.products.length > 0)
 }
 
+// Collections that aren't coffee — kept out of the homepage "current rotation" tiles
+const NON_COFFEE_COLLECTIONS = new Set([
+  'frontpage',
+  'equipment-and-merchandise',
+  'nar-concept-store',
+])
+
 export async function fetchLatestPerCollection(first = 10, lang = 'hr') {
   const data = await shopifyClient.request(LATEST_PER_COLLECTION_QUERY, {
     first,
@@ -441,7 +322,7 @@ export async function fetchLatestPerCollection(first = 10, lang = 'hr') {
   const seen = new Set()
   const list = []
   for (const { node } of data.collections.edges) {
-    if (node.handle === 'frontpage') continue
+    if (NON_COFFEE_COLLECTIONS.has(node.handle)) continue
     const p = node.products.edges[0]?.node
     if (p && !seen.has(p.id)) {
       seen.add(p.id)

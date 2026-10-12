@@ -46,7 +46,7 @@ export default function ProductDetail() {
 
   async function handleAddToCart() {
     if (!selectedVariant) return
-    await addItem(selectedVariant.id)
+    if (!(await addItem(selectedVariant.id))) return
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
   }
@@ -145,7 +145,7 @@ export default function ProductDetail() {
 
             {product.variants.length > 1 || (product.variants.length === 1 && product.variants[0].title.toLowerCase() !== 'default title') ? (
               <div className={styles.variants}>
-                <span className={styles.variantsLabel}>{t.product.packaging}</span>
+                <span className={styles.variantsLabel}>{product.options.join(' / ') || t.product.variant}</span>
                 <div className={styles.variantBtns}>
                   {product.variants.map((v) => (
                     <button

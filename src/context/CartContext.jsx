@@ -23,6 +23,8 @@ function cartReducer(state, action) {
       }
     case 'SET_LOADING':
       return { ...state, loading: true }
+    case 'SET_IDLE':
+      return { ...state, loading: false }
     case 'TOGGLE_CART':
       return { ...state, isOpen: !state.isOpen }
     case 'OPEN_CART':
@@ -44,27 +46,36 @@ export function CartProvider({ children }) {
     return cart.id
   }, [state.cartId])
 
-  const addItem = useCallback(async (variantId, quantity = 1) => {
+  // Runs a cart mutation and always clears `loading`, so one failed request
+  // can't leave every cart button disabled. Resolves to whether it succeeded.
+  const runCartAction = useCallback(async (action) => {
     dispatch({ type: 'SET_LOADING' })
-    const cartId = await ensureCart()
-    const cart = await addToCart(cartId, variantId, quantity)
-    dispatch({ type: 'SET_CART', cart })
-    dispatch({ type: 'OPEN_CART' })
-  }, [ensureCart])
+    try {
+      const cart = await action()
+      dispatch({ type: 'SET_CART', cart })
+      return true
+    } catch (err) {
+      console.error('Shopify cart error:', err)
+      dispatch({ type: 'SET_IDLE' })
+      return false
+    }
+  }, [])
+
+  const addItem = useCallback(async (variantId, quantity = 1) => {
+    const ok = await runCartAction(async () => addToCart(await ensureCart(), variantId, quantity))
+    if (ok) dispatch({ type: 'OPEN_CART' })
+    return ok
+  }, [ensureCart, runCartAction])
 
   const updateItem = useCallback(async (lineId, quantity) => {
-    if (!state.cartId) return
-    dispatch({ type: 'SET_LOADING' })
-    const cart = await updateCartLine(state.cartId, lineId, quantity)
-    dispatch({ type: 'SET_CART', cart })
-  }, [state.cartId])
+    if (!state.cartId) return false
+    return runCartAction(() => updateCartLine(state.cartId, lineId, quantity))
+  }, [state.cartId, runCartAction])
 
   const removeItem = useCallback(async (lineId) => {
-    if (!state.cartId) return
-    dispatch({ type: 'SET_LOADING' })
-    const cart = await removeCartLine(state.cartId, lineId)
-    dispatch({ type: 'SET_CART', cart })
-  }, [state.cartId])
+    if (!state.cartId) return false
+    return runCartAction(() => removeCartLine(state.cartId, lineId))
+  }, [state.cartId, runCartAction])
 
   const toggleCart = useCallback(() => dispatch({ type: 'TOGGLE_CART' }), [])
   const closeCart = useCallback(() => dispatch({ type: 'CLOSE_CART' }), [])
