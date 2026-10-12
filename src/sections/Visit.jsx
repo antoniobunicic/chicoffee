@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './Visit.module.css'
-import LocationMap from '../components/LocationMap'
 import { useLanguage } from '../context/LanguageContext'
 import zagrebVideo from '../assets/videos/zagreb.mp4'
 import trogirVideo from '../assets/videos/trogir.mp4'
+
+// MapLibre is heavy, so load it only when a map is actually rendered
+const LocationMap = lazy(() => import('../components/LocationMap'))
 
 const LOCATIONS = [
   {
@@ -42,7 +44,9 @@ export default function Visit() {
         {LOCATIONS.map((loc) => (
           <div key={loc.name} className={styles.location}>
             <div className={styles.mapCol}>
-              <LocationMap position={loc.position} label={`CHI · ${loc.name}`} />
+              <Suspense fallback={null}>
+                <LocationMap position={loc.position} label={`CHI · ${loc.name}`} />
+              </Suspense>
             </div>
 
             <div className={styles.videoCol}>

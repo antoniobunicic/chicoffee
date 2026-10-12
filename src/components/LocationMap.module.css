@@ -17,13 +17,34 @@
   z-index: 500;
 }
 
-.map :global(.leaflet-container) {
-  background: var(--color-bg);
+.map :global(.maplibregl-ctrl-bottom-right) {
+  z-index: 501;
+}
+
+/* Licence requires the credit to stay visible, so keep it but make it quiet */
+.map :global(.maplibregl-ctrl.maplibregl-ctrl-attrib) {
+  margin: 0 4px 2px 0;
+  padding: 0;
+  background: none;
   font-family: var(--font-body);
+  font-size: 8px;
+  line-height: 1.4;
+  opacity: 0.45;
+  transition: opacity 0.2s ease;
+}
+
+.map :global(.maplibregl-ctrl.maplibregl-ctrl-attrib:hover) {
+  opacity: 0.9;
+}
+
+.map :global(.maplibregl-ctrl-attrib a) {
+  color: inherit;
 }
 
 .markerWrapper {
-  position: relative;
+  z-index: 501;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,19 +83,30 @@
 }
 
 .tooltip {
-  background: #1a1714 !important;
-  color: #ffffff !important;
-  border: none !important;
-  border-radius: 2px !important;
-  padding: 6px 10px !important;
-  font-family: var(--font-body) !important;
-  font-size: 0.65rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.2em !important;
-  text-transform: uppercase !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #1a1714;
+  color: #ffffff;
+  border-radius: 2px;
+  padding: 6px 10px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
 }
 
-.tooltip::before {
-  border-top-color: #1a1714 !important;
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1a1714;
 }
