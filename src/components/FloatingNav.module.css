@@ -181,6 +181,7 @@
 }
 
 .link {
+  position: relative;
   pointer-events: all;
   color: rgba(247, 243, 238, 0.85);
   font-family: var(--font-body);
@@ -189,20 +190,59 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
   text-decoration: none;
-  padding-bottom: 2px;
-  border-bottom: 1px solid transparent;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  padding-bottom: 3px;
+}
+
+/* Underline draws in from the left on hover; stays fully drawn when active.
+   Stops short of the trailing letter-spacing so it matches the text width. */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0.22em;
+  bottom: 0;
+  height: 1px;
+  background-color: rgba(247, 243, 238, 0.7);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (hover: hover) {
-  .link:hover {
-    color: var(--color-brand);
+  .link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
   }
 }
 
 .active {
   color: rgba(247, 243, 238, 1);
-  border-bottom-color: rgba(247, 243, 238, 0.7);
+}
+
+.active::after {
+  transform: scaleX(1);
+}
+
+/* Shop stands out from the plain text links as a solid light rectangle */
+.highlightLink {
+  pointer-events: all;
+  color: var(--color-text);
+  background-color: var(--color-text-light);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  /* letter-spacing also trails the last letter, so trim it off the right */
+  padding: 0.3rem calc(0.6rem - 0.22em) 0.3rem 0.6rem;
+  transition: background-color 0.25s ease;
+}
+
+@media (hover: hover) {
+  .highlightLink:hover {
+    background-color: rgba(247, 243, 238, 0.82);
+  }
 }
 
 /* Slide-in menu drawer (from left) */
@@ -285,8 +325,28 @@
   color: rgba(247, 243, 238, 1);
 }
 
-.overlayLangSwitch {
-  margin-top: 2.5rem;
+/* Language switch + Instagram pinned to the bottom of the drawer, below the
+   centred menu. On desktop the switch is hidden, leaving just the icon. */
+.drawerFooter {
+  position: absolute;
+  left: 3.5rem;
+  right: 3.5rem;
+  bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.instagram {
+  display: flex;
+  color: rgba(247, 243, 238, 0.7);
+  transition: color 0.25s ease;
+}
+
+@media (hover: hover) {
+  .instagram:hover {
+    color: var(--color-text-light);
+  }
 }
 
 /* Language switch is already in the navbar on desktop */
@@ -349,9 +409,5 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-
-  .overlayLangSwitch {
-    margin-top: 3rem;
   }
 }

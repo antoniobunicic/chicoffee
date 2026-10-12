@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import { X } from '@phosphor-icons/react'
+import { InstagramLogo, X } from '@phosphor-icons/react'
 import CartIcon from './CartIcon'
 import LogoCHI from './LogoCHI'
 import LanguageSwitch from './LanguageSwitch'
@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { key: 'philosophy', to: '/philosophy' },
   { key: 'nar', to: '/nar' },
   { key: 'kontakt', to: '/lokacije' },
-  { key: 'webshop', to: '/webshop' },
+  { key: 'shop', to: '/shop', highlight: true },
 ]
 
 export default function FloatingNav() {
@@ -79,13 +79,15 @@ export default function FloatingNav() {
         )}
 
         <nav className={styles.nav}>
-          {NAV_LINKS.map(({ key, to }) => (
+          {NAV_LINKS.map(({ key, to, highlight }) => (
             <NavLink
               key={to}
               to={to}
               end={to === '/'}
               className={({ isActive }) =>
-                `${styles.link} ${isActive ? styles.active : ''}`
+                highlight
+                  ? styles.highlightLink
+                  : `${styles.link} ${isActive ? styles.active : ''}`
               }
             >
               {t.nav[key]}
@@ -126,7 +128,18 @@ export default function FloatingNav() {
             </NavLink>
           ))}
         </nav>
-        <LanguageSwitch className={styles.overlayLangSwitch} />
+        <div className={styles.drawerFooter}>
+          <LanguageSwitch className={styles.overlayLangSwitch} />
+          <a
+            href="https://www.instagram.com/chispecialtycoffee"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.instagram}
+            aria-label="Instagram"
+          >
+            <InstagramLogo size={22} weight="light" aria-hidden="true" />
+          </a>
+        </div>
       </aside>
     </>
   )

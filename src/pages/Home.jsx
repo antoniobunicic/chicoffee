@@ -4,6 +4,7 @@ import About from '../sections/About'
 import Story from '../sections/Story'
 import CoffeeTiles from '../sections/CoffeeTiles'
 import Space from '../sections/Space'
+import Wholesale from '../sections/Wholesale'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Story />
       <CoffeeTiles />
       <Space />
+      <Wholesale />
     </>
   )
 }

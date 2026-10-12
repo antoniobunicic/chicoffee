@@ -1,15 +1,16 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { EnvelopeSimple, InstagramLogo } from '@phosphor-icons/react'
 import styles from './Footer.module.css'
 import { useLanguage } from '../context/LanguageContext'
 import { legal, LEGAL_PAGES } from '../i18n/legal'
 
 const FOOTER_LINKS = [
   { key: 'home', to: '/' },
+  { key: 'shop', to: '/shop' },
   { key: 'philosophy', to: '/philosophy' },
   { key: 'nar', to: '/nar' },
   { key: 'kontakt', to: '/lokacije' },
-  { key: 'webshop', to: '/webshop' },
 ]
 
 export default function Footer() {
@@ -69,8 +70,17 @@ export default function Footer() {
           </div>
 
           <div className={styles.footerContact}>
-            <a href="mailto:chi_coffee@yahoo.com">chi_coffee@yahoo.com</a>
-            <a href="https://www.instagram.com/chispecialtycoffee" target="_blank" rel="noopener noreferrer">
+            <a href="mailto:chi_coffee@yahoo.com" className={styles.contactLink}>
+              <EnvelopeSimple size={16} weight="light" aria-hidden="true" />
+              chi_coffee@yahoo.com
+            </a>
+            <a
+              href="https://www.instagram.com/chispecialtycoffee"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.contactLink}
+            >
+              <InstagramLogo size={16} weight="light" aria-hidden="true" />
               @chispecialtycoffee
             </a>
           </div>

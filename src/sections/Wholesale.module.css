@@ -1,0 +1,188 @@
+.wholesale {
+  background-color: color-mix(in srgb, var(--color-brand) 8%, var(--color-bg));
+  color: var(--color-text);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  padding: var(--space-3xl) var(--space-2xl);
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 560px;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+  margin-bottom: var(--space-md);
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.15;
+  margin-bottom: var(--space-lg);
+}
+
+.paragraph {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  justify-content: center;
+  max-width: 560px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-xs) 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-sand);
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.input:focus {
+  border-bottom-color: var(--color-brand);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-sm);
+  padding: 0.85rem 2.2rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  background-color: var(--color-brand);
+  border: 1px solid var(--color-brand);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, opacity 0.25s ease;
+}
+
+.submit::after {
+  content: '→';
+  font-size: 0.95rem;
+  transition: transform 0.25s ease;
+}
+
+.submit:hover {
+  background-color: color-mix(in srgb, var(--color-brand) 85%, black);
+}
+
+.submit:hover::after {
+  transform: translateX(4px);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Out of the flow so the (usually empty) message doesn't throw off the
+   vertical centring against the text column. */
+.status {
+  position: absolute;
+  top: calc(100% + var(--space-sm));
+  left: 0;
+  right: 0;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--color-text);
+}
+
+.error {
+  color: var(--color-brand);
+}
+
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    padding: var(--space-2xl) var(--space-md);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .submit {
+    align-self: stretch;
+    justify-content: center;
+  }
+}

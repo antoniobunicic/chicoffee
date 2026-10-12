@@ -45,7 +45,7 @@ export default function CartDrawer() {
             <ul className={styles.list}>
               {lines.map((line) => (
                 <li key={line.id} className={styles.item}>
-                  <Link to={`/webshop/${line.handle}`} className={styles.itemLink} onClick={closeCart}>
+                  <Link to={`/shop/${line.handle}`} className={styles.itemLink} onClick={closeCart}>
                     {line.image && (
                       <img
                         src={line.image.url}
@@ -55,7 +55,7 @@ export default function CartDrawer() {
                     )}
                   </Link>
                   <div className={styles.itemInfo}>
-                    <Link to={`/webshop/${line.handle}`} className={styles.itemTitleLink} onClick={closeCart}>
+                    <Link to={`/shop/${line.handle}`} className={styles.itemTitleLink} onClick={closeCart}>
                       <span className={styles.itemTitle}>{line.title}</span>
                     </Link>
                     {line.variantTitle && line.variantTitle.toLowerCase() !== 'default title' && (

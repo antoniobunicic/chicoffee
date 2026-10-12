@@ -69,7 +69,7 @@ export default function CoffeeTiles() {
           {products.length === 0
             ? [...Array(3)].map((_, i) => <div key={i} className={styles.tile} />)
             : products.map((product) => (
-                <Link key={product.id} to={`/webshop/${product.handle}`} className={styles.tile}>
+                <Link key={product.id} to={`/shop/${product.handle}`} className={styles.tile}>
                   {product.image ? (
                     <img src={product.image.url} alt={product.image.altText || product.title} className={styles.img} />
                   ) : (
@@ -80,7 +80,7 @@ export default function CoffeeTiles() {
         </div>
       </div>
 
-      <Link to="/webshop" className={styles.cta}>{t.webshop.homeCta}</Link>
+      <Link to="/shop" className={styles.cta}>{t.webshop.homeCta}</Link>
     </section>
   )
 }

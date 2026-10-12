@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { LanguageProvider } from './context/LanguageContext'
 import { CartProvider } from './context/CartContext'
@@ -40,6 +40,12 @@ const pageVariants = {
   },
 }
 
+// Keep old /webshop links (shared, indexed) working after the rename to /shop.
+function LegacyProductRedirect() {
+  const { handle } = useParams()
+  return <Navigate to={`/shop/${handle}`} replace />
+}
+
 function AnimatedRoutes() {
   const location = useLocation()
 
@@ -59,8 +65,10 @@ function AnimatedRoutes() {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/philosophy" element={<PhilosophyPage />} />
-          <Route path="/webshop" element={<WebshopPage />} />
-          <Route path="/webshop/:handle" element={<ProductPage />} />
+          <Route path="/shop" element={<WebshopPage />} />
+          <Route path="/shop/:handle" element={<ProductPage />} />
+          <Route path="/webshop" element={<Navigate to="/shop" replace />} />
+          <Route path="/webshop/:handle" element={<LegacyProductRedirect />} />
           <Route path="/nar" element={<NarPage />} />
           <Route path="/lokacije" element={<Kontakt />} />
           {LEGAL_PAGES.map(({ key, slug }) => (

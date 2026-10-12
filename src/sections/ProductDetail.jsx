@@ -78,7 +78,7 @@ export default function ProductDetail() {
 
       <div className={styles.page}>
         <nav className={styles.breadcrumb}>
-          <Link to="/webshop" className={styles.breadcrumbLink}>{t.product.breadcrumb}</Link>
+          <Link to="/shop" className={styles.breadcrumbLink}>{t.product.breadcrumb}</Link>
           <span className={styles.breadcrumbSep}>/</span>
           <span className={styles.breadcrumbCurrent}>{product.title}</span>
         </nav>

@@ -29,7 +29,7 @@ function ProductCard({ product, onAdd, cartLoading }) {
 
   return (
     <div className={styles.card}>
-      <Link to={`/webshop/${product.handle}`} className={styles.imgWrap}>
+      <Link to={`/shop/${product.handle}`} className={styles.imgWrap}>
         {product.image ? (
           <img
             src={product.image.url}
@@ -45,7 +45,7 @@ function ProductCard({ product, onAdd, cartLoading }) {
         {product.productType && (
           <span className={styles.eyebrow}>{product.productType}</span>
         )}
-        <Link to={`/webshop/${product.handle}`} className={styles.titleLink}>
+        <Link to={`/shop/${product.handle}`} className={styles.titleLink}>
           <h3 className={styles.title}>{product.title}</h3>
         </Link>
         {product.vendor && (

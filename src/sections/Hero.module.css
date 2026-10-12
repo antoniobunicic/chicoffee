@@ -29,15 +29,81 @@
   transform-origin: right center;
 }
 
-.logoWrapper {
+.logoLink {
   position: relative;
   z-index: 10;
+  display: block;
+  text-decoration: none;
+  border-radius: 50%;
+}
+
+.logoLink:focus-visible {
+  outline: 1px solid rgba(247, 243, 238, 0.5);
+  outline-offset: 1.5rem;
+}
+
+/* Sits below the logo without taking up layout space, so the logo stays
+   centred; hidden until the logo is hovered (or focused). */
+.cta {
+  position: absolute;
+  top: calc(100% + var(--space-lg));
+  left: 50%;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding-bottom: var(--space-2xs);
+  border-bottom: 1px solid rgba(247, 243, 238, 0.5);
+  opacity: 0;
+  transform: translate(-50%, -6px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cta::after {
+  content: '→';
+  font-size: 0.95rem;
+  transition: transform 0.25s ease;
+}
+
+@media (hover: hover) {
+  .logoLink:hover .logo {
+    transform: scale(1.04);
+  }
+
+  .logoLink:hover .cta {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .logoLink:hover .cta::after {
+    transform: translateX(4px);
+  }
+}
+
+.logoLink:focus-visible .cta {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* No hover on touch screens: the logo is still a link, but without the line. */
+@media (hover: none) {
+  .cta {
+    display: none;
+  }
 }
 
 .logo {
   width: clamp(260px, 18vw, 320px);
   height: auto;
   color: #fff;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (max-width: 640px) {
